@@ -1,0 +1,152 @@
+// Estilos para a página de registro seguindo o mesmo padrão da página de login
+.containerCenter {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--white);
+    padding: 1rem;
+}
+
+.title {
+    color: #000000;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.subtitle {
+    color: #5a5a5a;
+    ;
+    font-size: 1rem;
+    margin-bottom: 30px;
+}
+
+.registerBox {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid #cfcfcf;
+    width: 100%;
+    max-width: 500px;
+
+    form {
+        width: 100%;
+    }
+}
+
+.formTitle {
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.inputGroup {
+    margin-bottom: 1.5rem;
+}
+
+.label {
+    display: block;
+    color: var(--gray-700);
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+}
+
+.input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 8px;
+    background-color: var(--white);
+    font-size: 1rem;
+    transition: border 0.2s;
+    border: 1px solid #cfcfcf;
+
+    &:focus {
+        border-color: var(--primary);
+        outline: none;
+    }
+
+    &::placeholder {
+        color: #919191;
+        font-weight: 500;
+        font-size: 1rem;
+    }
+}
+
+.loginButton {
+    width: 100%;
+    background-color: #000000;
+    color: #FFFFFF;
+    padding: 0.8rem;
+    border: 0;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    
+    &:hover {
+        filter: brightness(1.08);
+        transform: translateY(-2px);
+    }
+    
+    &:disabled {
+        cursor: not-allowed;
+        background-color: #919191;
+    }
+}
+
+.loginLink {
+    margin-top: 1.5rem;
+    text-align: center;
+    color: var(--gray-700);
+    font-size: 0.95rem;
+
+    a {
+        color: var(--primary);
+        font-weight: 500;
+        text-decoration: none;
+        margin-left: 0.3rem;
+        transition: all 0.2s;
+        color: #1432df;
+
+        &:hover {
+            text-decoration: underline;
+            filter: brightness(0.9);
+        }
+    }
+}
+
+.error {
+    color: var(--red);
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    text-align: center;
+    background-color: rgba(255, 0, 0, 0.1);
+    padding: 0.75rem;
+    border-radius: 8px;
+    border-left: 3px solid var(--red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::before {
+        content: "⚠️";
+        margin-right: 8px;
+        font-size: 1rem;
+    }
+}
+
+// Responsividade
+@media (max-width: 620px) {
+    .registerBox {
+        width: 95%;
+        padding: 1.5rem;
+    }
+}

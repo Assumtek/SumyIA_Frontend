@@ -1,0 +1,23 @@
+/* Importar os estilos da página principal */
+@import './page.module.scss';
+
+/* Estilos específicos para a página 404 */
+.notFoundText {
+  margin: 1.5rem 0;
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Sobrescrever estilos existentes */
+.title {
+  font-size: 5rem !important;
+  color: #ff5555 !important;
+  margin-bottom: 0 !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+  font-size: 1.5rem !important;
+  margin-bottom: 2rem !important;
+} 

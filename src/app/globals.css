@@ -1,0 +1,61 @@
+/* Variáveis CSS globais */
+:root {
+  --primary-color: #216bff;
+  --hover-primary: #0056cc;
+  --text-color: #333;
+  --secondary-text: #666;
+  --light-text: #888;
+  --background: #f9f9f9;
+  --white: #fff;
+  --border-color: #e1e1e1;
+  --hover-bg: #f5f5f5;
+  --active-bg: #f0f0f0;
+  --shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Estilos de reset e base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: var(--text-color);
+  background-color: var(--white);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* Estilos para scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+} 

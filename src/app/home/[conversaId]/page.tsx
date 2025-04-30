@@ -267,7 +267,7 @@ export default function ChatConversa() {
       console.log("Chamando handleIniciarConversa");
 
       // Criar uma nova conversa
-      const response = await handleIniciarConversa()
+      const response = await handleIniciarConversa("Nova Conversa")
 
       if (response && response.conversaId) {
         // Redirecionar para a nova conversa
@@ -369,7 +369,7 @@ export default function ChatConversa() {
           router.push(`/home/${outrasConversas[0].id}`);
         } else {
           // Se não houver outras conversas, criar uma nova
-          const response = await handleIniciarConversa();
+          const response = await handleIniciarConversa("Nova Conversa");
           if (response && response.conversaId) {
             router.push(`/home/${response.conversaId}`);
           }

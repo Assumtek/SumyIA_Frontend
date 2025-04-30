@@ -150,12 +150,12 @@ export async function handleEnviarResposta(conversaId: string, mensagem: string)
   }
 }
 
-export async function handleIniciarConversa() {
+export async function handleIniciarConversa(p0: string) {
   const token = getCookiesServer()
   console.log("Token recebido:", token);
   try { 
     const response = await api.post('/api/conversa/iniciar', {
-      secao: 'Sem titulo'  
+      secao: p0  
     }, { headers: { Authorization: `Bearer ${token}` } });
 
     console.log("Resposta da API (NOVA CONVERSA):", response.data);

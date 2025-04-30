@@ -11,6 +11,7 @@
   "dependencies": {
     "@stripe/react-stripe-js": "^3.6.0",
     "@stripe/stripe-js": "^7.0.0",
+    "@types/react-toastify": "^4.0.2",
     "axios": "^1.7.7",
     "cookies-next": "^4.2.1",
     "dayjs": "^1.11.13",
@@ -18,6 +19,7 @@
     "next": "^14.2.13",
     "react": "^18",
     "react-dom": "^18",
+    "react-toastify": "^11.0.5",
     "sass": "^1.79.3",
     "sonner": "^1.5.0",
     "stripe": "^18.0.0"

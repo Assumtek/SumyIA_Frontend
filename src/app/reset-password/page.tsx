@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, FormEvent, useEffect } from 'react'
+import { useState, FormEvent, useEffect, Suspense } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import styles from '../page.module.scss'
 import { handleResetPassword } from '../actions/serverActions'
 
-export default function ResetPassword() {
+function ResetPasswordForm() {
   const [loading, setLoading] = useState(false)
   const [validatingToken, setValidatingToken] = useState(true)
   const [error, setError] = useState('')
@@ -171,5 +171,13 @@ export default function ResetPassword() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function ResetPassword() {
+  return (
+    <Suspense fallback={<div>Carregando...</div>}>
+      <ResetPasswordForm />
+    </Suspense>
   )
 } 

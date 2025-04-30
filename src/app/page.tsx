@@ -1,13 +1,13 @@
 "use client"; // Habilita o componente do lado do cliente
 
-import { useState, FormEvent, useEffect } from 'react'
+import { useState, FormEvent, useEffect, Suspense } from 'react'
 import Link from 'next/link'
 import styles from './page.module.scss'
 import { toast } from 'react-toastify'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { handleLogin, handleListarConversas } from './actions/serverActions' // Importa a função handleLogin do arquivo de server actions
 
-export default function Home() {
+function LoginForm() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
@@ -142,5 +142,13 @@ export default function Home() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div>Carregando...</div>}>
+      <LoginForm />
+    </Suspense>
   )
 }

@@ -1,11 +1,4 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/forgot-password/page": "app/forgot-password/page.js",
-  "/page": "app/page.js",
   "/home/[conversaId]/page": "app/home/[conversaId]/page.js",
-  "/icon.svg/route": "app/icon.svg/route.js",
-  "/profile/page": "app/profile/page.js",
-  "/register/page": "app/register/page.js",
-  "/retorno/page": "app/retorno/page.js",
-  "/reset-password/page": "app/reset-password/page.js"
+  "/page": "app/page.js"
 }

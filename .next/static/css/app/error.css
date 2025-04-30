@@ -1,0 +1,215 @@
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[9].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[9].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[13].oneOf[9].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[13].oneOf[9].use[5]!./src/app/not-found.module.scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+@charset "UTF-8";
+/* Importar os estilos da página principal */
+.not-found_containerCenter__0qByF {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white);
+  padding: 1rem;
+}
+
+.not-found_title__HIivx {
+  color: #000000;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.not-found_subtitle__byVTu {
+  color: #5a5a5a;
+  font-size: 1rem;
+  margin-bottom: 30px;
+}
+
+.not-found_login__NoMTv {
+  background-color: var(--white);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid #cfcfcf;
+  width: 100%;
+  max-width: 500px;
+}
+.not-found_login__NoMTv h1 {
+  color: var(--primary);
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.not-found_login__NoMTv form {
+  width: 100%;
+}
+
+.not-found_inputGroup__90XNO {
+  margin-bottom: 1.5rem;
+}
+
+.not-found_labelRow__U5UlD {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.not-found_forgotPassword__D0A2t {
+  color: rgb(37, 99, 235);
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+.not-found_forgotPassword__D0A2t:hover {
+  text-decoration: underline;
+  filter: brightness(0.9);
+}
+
+.not-found_input__LwdyF {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border 0.2s;
+  border: 1px solid #cfcfcf;
+  margin-top: 5px;
+}
+.not-found_input__LwdyF:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+.not-found_input__LwdyF::placeholder {
+  color: #919191;
+  font-weight: 500;
+}
+
+.not-found_label__0umtL {
+  display: block;
+  color: var(--gray-700);
+  font-size: 0.95rem;
+  font-weight: 500;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.not-found_loginButton__dgk80 {
+  width: 100%;
+  background-color: #000000;
+  color: #FFFFFF;
+  padding: 0.8rem;
+  border: 0;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.not-found_loginButton__dgk80:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+.not-found_loginButton__dgk80:disabled {
+  cursor: not-allowed;
+  background-color: #919191;
+}
+
+.not-found_registerLink__YHb7I {
+  margin-top: 1.5rem;
+  text-align: center;
+  color: var(--gray-700);
+  font-size: 0.95rem;
+}
+.not-found_registerLink__YHb7I a {
+  color: var(--primary);
+  font-weight: 500;
+  text-decoration: none;
+  margin-left: 0.3rem;
+  transition: all 0.2s;
+  color: rgb(37, 99, 235);
+}
+.not-found_registerLink__YHb7I a:hover {
+  text-decoration: underline;
+  filter: brightness(0.9);
+}
+
+.not-found_error___Kkty {
+  color: var(--red);
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  text-align: center;
+  background-color: rgba(255, 0, 0, 0.1);
+  padding: 0.75rem;
+  border-radius: 8px;
+  border-left: 3px solid var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.not-found_error___Kkty::before {
+  content: "⚠️";
+  margin-right: 8px;
+  font-size: 1rem;
+}
+
+.not-found_formTitle__lZEqb {
+  color: var(--primary);
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.not-found_success__M9x5g {
+  color: var(--green);
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  text-align: center;
+  background-color: rgba(0, 128, 0, 0.1);
+  padding: 0.75rem;
+  border-radius: 8px;
+  border-left: 3px solid var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.not-found_success__M9x5g::before {
+  content: "✅";
+  margin-right: 8px;
+  font-size: 1rem;
+}
+
+@media (max-width: 620px) {
+  .not-found_login__NoMTv {
+    width: 90%;
+    padding: 40px 40px;
+  }
+  .not-found_logo__zcRgl {
+    min-width: 0px;
+    width: 30%;
+  }
+}
+/* Estilos específicos para a página 404 */
+.not-found_notFoundText__Xp3rO {
+  margin: 1.5rem 0;
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Sobrescrever estilos existentes */
+.not-found_title__HIivx {
+  font-size: 5rem !important;
+  color: #ff5555 !important;
+  margin-bottom: 0 !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.not-found_subtitle__byVTu {
+  font-size: 1.5rem !important;
+  margin-bottom: 2rem !important;
+}

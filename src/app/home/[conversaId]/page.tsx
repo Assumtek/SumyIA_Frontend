@@ -20,6 +20,7 @@ import {
 import { Settings, HelpCircle, LogOut, Plus, Send, Edit2, Trash2, MoreVertical, FileText } from 'lucide-react';
 import { logout } from '@/lib/logout';
 import { downloadFile } from '@/lib/downloadHelper';
+import { marked } from 'marked';
 
 // Tipos para mensagens e conversa
 type Mensagem = {
@@ -553,7 +554,12 @@ export default function ChatConversa() {
                   className={msg.role === 'user' ? styles.mensagemUser : styles.mensagemIA}
                   data-author={msg.role === 'user' ? userData?.nome || 'Usuário Demo' : 'Assistente IA'}
                 >
-                  <p>{msg.content}</p>
+                  {msg.role === 'user' ? (
+                    <p>{msg.content}</p>
+                  ) : (
+                    // Renderiza a resposta da IA como HTML
+                    <div dangerouslySetInnerHTML={{ __html: marked.parse(msg.content) }} />
+                  )}
                   <span className={styles.horario}>{formatarData(msg.createdAt)}</span>
                 </div>
               ))}

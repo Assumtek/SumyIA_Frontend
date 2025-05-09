@@ -361,10 +361,6 @@ export async function handleDeletarConversa(conversaId: string) {
 }
 
 export async function handleDownloadDocumentoWord(conversaId: string) {
-  // Esta função precisa ser implementada no cliente, não como server action
-  // Isso porque precisamos fazer o download do arquivo através do browser
-  
-  // Aqui, apenas retornamos a URL para o download
   const token = getCookiesServer();
   
   if (!token) {

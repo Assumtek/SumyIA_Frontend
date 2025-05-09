@@ -1,0 +1,104 @@
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[9].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[9].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[13].oneOf[9].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[13].oneOf[9].use[5]!./src/app/home/home.module.scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+@charset "UTF-8";
+.home_container__usT03 {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.home_content__sQASO {
+  max-width: 1200px;
+  width: 100%;
+  background: white;
+  border-radius: 1rem;
+  padding: 3rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.home_title__JDeJj {
+  font-size: 2.5rem;
+  color: #2d3748;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.home_description__GKiBt {
+  margin-bottom: 3rem;
+}
+.home_description__GKiBt h2 {
+  font-size: 1.8rem;
+  color: #4a5568;
+  margin-bottom: 1rem;
+}
+.home_description__GKiBt ul {
+  list-style: none;
+  padding: 0;
+}
+.home_description__GKiBt ul li {
+  font-size: 1.1rem;
+  color: #4a5568;
+  margin-bottom: 0.8rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+.home_description__GKiBt ul li:before {
+  content: "•";
+  color: #4299e1;
+  position: absolute;
+  left: 0;
+}
+
+.home_features__BM2sR {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 2rem;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.home_feature__2GAW8 {
+  background: #f7fafc;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  transition: transform 0.2s;
+}
+.home_feature__2GAW8:hover {
+  transform: translateY(-5px);
+}
+.home_feature__2GAW8 h3 {
+  font-size: 1.3rem;
+  color: #2d3748;
+  margin-bottom: 0.8rem;
+}
+.home_feature__2GAW8 p {
+  font-size: 1rem;
+  color: #4a5568;
+  line-height: 1.5;
+}
+
+.home_startButton__WthAh {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  color: white;
+  background: #4299e1;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.home_startButton__WthAh:hover {
+  background: #3182ce;
+}
+.home_startButton__WthAh:disabled {
+  background: #a0aec0;
+  cursor: not-allowed;
+}

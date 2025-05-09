@@ -1,4 +1,6 @@
 {
-  "/home/[conversaId]/page": "app/home/[conversaId]/page.js",
-  "/icon.svg/route": "app/icon.svg/route.js"
+  "/register/page": "app/register/page.js",
+  "/home/page": "app/home/page.js",
+  "/page": "app/page.js",
+  "/home/[conversaId]/page": "app/home/[conversaId]/page.js"
 }

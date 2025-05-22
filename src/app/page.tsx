@@ -7,6 +7,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 export default function LP() {
+  const [menuOpen, setMenuOpen] = useState(false);
   const navbarRef = useRef<HTMLDivElement>(null);
   const menuLinksRef = useRef<HTMLDivElement>(null);
   const ctaButtonRef = useRef<HTMLAnchorElement>(null);
@@ -163,22 +164,31 @@ export default function LP() {
         <div className={styles.esquerda}>
           <h1>SUMY<span>IA.</span></h1>
           <div className={styles.divisornav}></div>
-          <div ref={menuLinksRef}>
+          <button className={styles.hamburger} onClick={() => setMenuOpen(!menuOpen)} aria-label="Abrir menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <div className={`${styles.menuLinks} ${menuOpen ? styles.open : ''}`}>
             <a href="#header" onClick={(e) => {
                 e.preventDefault();
                 document.querySelector('#header')?.scrollIntoView({ behavior: 'smooth' });
+                setMenuOpen(false);
             }}>Home</a>
             <a href="#servicos" onClick={(e) => {
                 e.preventDefault();
                 document.querySelector('#servicos')?.scrollIntoView({ behavior: 'smooth' });
+                setMenuOpen(false);
             }}>Serviços</a>
             <a href="#depoimentos" onClick={(e) => {
                 e.preventDefault();
                 document.querySelector('#depoimentos')?.scrollIntoView({ behavior: 'smooth' });
+                setMenuOpen(false);
             }}>Depoimentos</a>
             <a href="#precos" onClick={(e) => {
                 e.preventDefault();
                 document.querySelector('#precos')?.scrollIntoView({ behavior: 'smooth' });
+                setMenuOpen(false);
             }}>Preços</a>
           </div>
         </div>

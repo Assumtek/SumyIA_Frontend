@@ -7,11 +7,11 @@ import Link from 'next/link';
 import styles from './page.module.scss';
 import { api } from '../../services/api';
 import { getCookiesClient } from '@/lib/cookieClient';
-import { 
-  handleListarMensagensConversa, 
-  handleListarConversas, 
-  handleEnviarResposta, 
-  handleIniciarConversa, 
+import {
+  handleListarMensagensConversa,
+  handleListarConversas,
+  handleEnviarResposta,
+  handleIniciarConversa,
   handleMe,
   handleEditarNomeConversa,
   handleDeletarConversa,
@@ -19,8 +19,9 @@ import {
 } from '@/app/actions/serverActions';
 import { Settings, HelpCircle, LogOut, Plus, Send, Edit2, Trash2, MoreVertical, FileText } from 'lucide-react';
 import { logout } from '@/lib/logout';
-import { downloadFile } from '@/lib/downloadHelper';
 import { marked } from 'marked';
+import { MutatingDots } from 'react-loader-spinner';
+import FullScreenLoader from '@/app/components/FullScreenLoader';
 
 // Tipos para mensagens e conversa
 type Mensagem = {
@@ -55,7 +56,8 @@ type User = {
 };
 
 export default function ChatConversa() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [loadingNewConversa, setLoadingNewConversa] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [mensagens, setMensagens] = useState<Mensagem[]>([]);
   const [conversa, setConversa] = useState<Conversa | null>(null);
@@ -65,13 +67,13 @@ export default function ChatConversa() {
   const [enviandoMensagem, setEnviandoMensagem] = useState(false);
   const [processandoResposta, setProcessandoResposta] = useState(false);
   const [userData, setUserData] = useState<User | null>(null);
-  
+
   // Estados para gerenciar edição e exclusão
   const [conversaEditando, setConversaEditando] = useState<string | null>(null);
   const [novoNomeConversa, setNovoNomeConversa] = useState('');
   const [mostrarModalExclusao, setMostrarModalExclusao] = useState<string | null>(null);
   const [processandoAcao, setProcessandoAcao] = useState(false);
-  
+
   const params = useParams();
   const router = useRouter();
   const mensagensRef = useRef<HTMLDivElement>(null);
@@ -94,16 +96,16 @@ export default function ChatConversa() {
 
   // Função para buscar mensagens da conversa
   useEffect(() => {
-    
+
     async function fetchMensagens() {
       if (!conversaId) return;
-      
+
       setLoading(true);
       setError(null);
 
       try {
         const token = getCookiesClient()
-        
+
         if (!token) {
           router.push('/'); // Redirecionar para login se não estiver autenticado
           return;
@@ -111,18 +113,18 @@ export default function ChatConversa() {
 
         // Buscar as mensagens da conversa
         const response = await handleListarMensagensConversa(conversaId)
-        
+
         // Verificar se a API retornou as mensagens
         if (response && response.mensagens) {
           // Filtrar as duas primeiras mensagens automáticas do sistema
           const mensagensFiltradas = response.mensagens.filter((msg: Mensagem, index: number) => {
             // Se for uma das duas primeiras mensagens e for do sistema, não incluir
-            if (index < 1 ) {
+            if (index < 1) {
               return false;
             }
             return true;
           });
-          
+
           setMensagens(mensagensFiltradas);
           setConversa({
             id: conversaId,
@@ -135,7 +137,7 @@ export default function ChatConversa() {
       } catch (err: any) {
         console.error('Erro ao buscar mensagens:', err);
         setError(err.response?.data?.message || 'Erro ao carregar a conversa');
-        
+
         // Se for erro 401 (não autorizado), redirecionar para login
         if (err.response?.status === 401) {
           router.push('/');
@@ -156,7 +158,7 @@ export default function ChatConversa() {
 
       try {
         const response = await handleListarConversas();
-        
+
         if (response && Array.isArray(response)) {
           setConversas(response);
         }
@@ -180,14 +182,14 @@ export default function ChatConversa() {
   // Função para enviar nova mensagem
   const enviarMensagem = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!novaMsg.trim() || enviandoMensagem) return;
-    
+
     const mensagemTexto = novaMsg.trim();
     setNovaMsg(''); // Limpar o campo imediatamente
     setEnviandoMensagem(true);
     setProcessandoResposta(true); // Iniciar processamento da resposta
-    
+
     // Adicionar mensagem do usuário ao estado local imediatamente (UI otimista)
     const novaMensagemUsuario: Mensagem = {
       id: `temp-${Date.now()}`, // ID temporário
@@ -195,13 +197,13 @@ export default function ChatConversa() {
       content: mensagemTexto,
       createdAt: new Date().toISOString()
     };
-    
+
     setMensagens(mensagensAtuais => [...mensagensAtuais, novaMensagemUsuario]);
-    
+
     try {
       // Obter o token de autenticação
       const token = getCookiesClient();
-      
+
       if (!token) {
         router.push('/');
         return;
@@ -211,7 +213,7 @@ export default function ChatConversa() {
       const response = await handleEnviarResposta(conversaId, mensagemTexto);
 
       console.log('Resposta da API:', response);
-      
+
       if (response && response.pergunta) {
         // Se a API retornar a resposta da IA no campo 'pergunta'
         const novaMensagemIA: Mensagem = {
@@ -220,19 +222,19 @@ export default function ChatConversa() {
           content: response.pergunta,
           createdAt: new Date().toISOString()
         };
-        
+
         // Adicionar a resposta da IA às mensagens existentes
         setMensagens(mensagensAtuais => [...mensagensAtuais, novaMensagemIA]);
       }
-      
+
       // Atualizar a lista de conversas para mostrar a última mensagem
       atualizarListaConversas();
     } catch (err: any) {
       console.error('Erro ao enviar mensagem:', err);
       alert('Não foi possível enviar a mensagem');
-      
+
       // Remover a mensagem temporária em caso de erro
-      setMensagens(mensagensAtuais => 
+      setMensagens(mensagensAtuais =>
         mensagensAtuais.filter(m => m.id !== novaMensagemUsuario.id)
       );
     } finally {
@@ -245,7 +247,7 @@ export default function ChatConversa() {
   const atualizarListaConversas = async () => {
     try {
       const response = await handleListarConversas();
-      
+
       if (response && Array.isArray(response)) {
         setConversas(response);
       }
@@ -257,25 +259,23 @@ export default function ChatConversa() {
   // Iniciar uma nova conversa
   const iniciarNovaConversa = async () => {
     try {
-      // Obter o token de autenticação
+      setLoadingNewConversa(true); // Ativa o loading
       const token = getCookiesClient();
 
       if (!token) {
         router.push('/');
+        setLoadingNewConversa(false);
         return;
       }
 
-      console.log("Chamando handleIniciarConversa");
-
-      // Criar uma nova conversa
-      const response = await handleIniciarConversa("Nova Conversa")
+      const response = await handleIniciarConversa("Nova Conversa");
 
       if (response && response.conversaId) {
-        // Redirecionar para a nova conversa
         router.push(`/home/${response.conversaId}`);
       }
+
+      setLoadingNewConversa(false); // Desativa o loading
     } catch (err) {
-      console.error('Erro ao criar nova conversa:', err);
       alert('Não foi possível criar uma nova conversa');
     }
   };
@@ -305,36 +305,36 @@ export default function ChatConversa() {
   // Gerar iniciais para o avatar
   const getInitials = (name: string) => {
     if (!name) return 'UD';
-    
+
     const nameParts = name.split(' ');
     if (nameParts.length === 1) return nameParts[0].substring(0, 2).toUpperCase();
-    
+
     return (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase();
   };
 
   // Função para editar o nome da conversa
   const editarNomeConversa = async (conversaId: string) => {
     if (!novoNomeConversa.trim() || processandoAcao) return;
-    
+
     setProcessandoAcao(true);
-    
+
     try {
       await handleEditarNomeConversa(conversaId, novoNomeConversa);
-      
+
       // Atualizar o estado local para refletir a mudança
-      setConversas(conversasAtuais => 
-        conversasAtuais.map(c => 
+      setConversas(conversasAtuais =>
+        conversasAtuais.map(c =>
           c.id === conversaId ? { ...c, secao: novoNomeConversa } : c
         )
       );
-      
+
       // Se estiver editando a conversa atual, atualizar o título
       if (conversaId === params.conversaId) {
-        setConversa(conversaAtual => 
+        setConversa(conversaAtual =>
           conversaAtual ? { ...conversaAtual, secao: novoNomeConversa } : null
         );
       }
-      
+
       // Limpar estado de edição
       setConversaEditando(null);
       setNovoNomeConversa('');
@@ -349,22 +349,22 @@ export default function ChatConversa() {
   // Função para excluir a conversa
   const excluirConversa = async (conversaId: string) => {
     if (processandoAcao) return;
-    
+
     setProcessandoAcao(true);
-    
+
     try {
       await handleDeletarConversa(conversaId);
-      
+
       // Atualizar a lista de conversas
-      setConversas(conversasAtuais => 
+      setConversas(conversasAtuais =>
         conversasAtuais.filter(c => c.id !== conversaId)
       );
-      
+
       // Se a conversa excluída for a atual, redirecionar para outra
       if (conversaId === params.conversaId) {
         // Verificar se há outras conversas
         const outrasConversas = conversas.filter(c => c.id !== conversaId);
-        
+
         if (outrasConversas.length > 0) {
           // Redirecionar para a primeira conversa disponível
           router.push(`/home/${outrasConversas[0].id}`);
@@ -376,7 +376,7 @@ export default function ChatConversa() {
           }
         }
       }
-      
+
       // Fechar o modal
       setMostrarModalExclusao(null);
     } catch (err) {
@@ -389,15 +389,7 @@ export default function ChatConversa() {
 
   // Add this function for downloading the document
   const baixarDocumentoWord = async () => {
-    try {
-      if (!conversaId) return;
-      
-      const downloadInfo = await handleDownloadDocumentoWord(conversaId);
-      await downloadFile(downloadInfo.url, downloadInfo.token);
-    } catch (error) {
-      console.error('Erro ao baixar documento:', error);
-      alert('Não foi possível baixar o documento Word.');
-    }
+
   };
 
   return (
@@ -409,7 +401,7 @@ export default function ChatConversa() {
             <h1 className={styles.title}>Sumy IA</h1>
           </div>
         </div>
-        
+
         {/* Informações do usuário no topo da sidebar */}
         <div className={styles.userInfoContainer} onClick={() => router.push('/profile')}>
           <div className={styles.userAvatar}>
@@ -420,7 +412,7 @@ export default function ChatConversa() {
             <p>{userData?.email || 'usuario@exemplo.com'}</p>
           </div>
         </div>
-        
+
         <div className={styles.sidebarHeader}>
           <h3>Conversas</h3>
           <button onClick={iniciarNovaConversa} className={styles.novaConversaBtn}>
@@ -428,7 +420,7 @@ export default function ChatConversa() {
             <span className={styles.btnText}>Nova</span>
           </button>
         </div>
-        
+
         <div className={styles.conversasList}>
           {carregandoConversas ? (
             <div className={styles.carregando}>Carregando...</div>
@@ -436,8 +428,8 @@ export default function ChatConversa() {
             <div className={styles.semConversas}>Nenhuma conversa encontrada</div>
           ) : (
             conversas.map((item) => (
-              <div 
-                key={item.id} 
+              <div
+                key={item.id}
                 className={`${styles.conversaItem} ${item.id === conversaId ? styles.ativo : ''}`}
               >
                 {conversaEditando === item.id ? (
@@ -452,14 +444,14 @@ export default function ChatConversa() {
                       autoFocus
                     />
                     <div className={styles.editarBotoes}>
-                      <button 
+                      <button
                         onClick={() => editarNomeConversa(item.id)}
                         className={styles.botaoSalvar}
                         disabled={processandoAcao || !novoNomeConversa.trim()}
                       >
                         Salvar
                       </button>
-                      <button 
+                      <button
                         onClick={() => {
                           setConversaEditando(null);
                           setNovoNomeConversa('');
@@ -482,7 +474,7 @@ export default function ChatConversa() {
                       </div>
                     </Link>
                     <div className={styles.conversaAcoes}>
-                      <button 
+                      <button
                         onClick={() => {
                           setConversaEditando(item.id);
                           setNovoNomeConversa(item.secao);
@@ -492,7 +484,7 @@ export default function ChatConversa() {
                       >
                         <Edit2 size={16} />
                       </button>
-                      <button 
+                      <button
                         onClick={() => setMostrarModalExclusao(item.id)}
                         className={styles.botaoExcluir}
                         aria-label="Excluir conversa"
@@ -506,7 +498,7 @@ export default function ChatConversa() {
             ))
           )}
         </div>
-        
+
         {/* Botões de navegação no rodapé da sidebar */}
         <div className={styles.sidebarFooter}>
           <button className={styles.footerButton} onClick={() => router.push('/profile')}>
@@ -523,22 +515,15 @@ export default function ChatConversa() {
           </button>
         </div>
       </div>
-      
+
       <div className={styles.chatContainer}>
         <div className={styles.tituloAtualChat}>
           <div className={styles.tituloContainer}>
             <div>{conversa?.secao || 'Carregando...'}</div>
-            <button 
-              onClick={baixarDocumentoWord} 
-              className={styles.botaoBaixarDocumento}
-              title="Baixar como Word"
-              aria-label="Baixar como documento Word"
-            >
-              <FileText size={20} />
-            </button>
+            
           </div>
         </div>
-        
+
         <div className={styles.mensagens} ref={mensagensRef}>
           {loading ? (
             <div className={styles.carregando}>Carregando mensagens...</div>
@@ -549,8 +534,8 @@ export default function ChatConversa() {
           ) : (
             <>
               {mensagens.map((msg) => (
-                <div 
-                  key={msg.id} 
+                <div
+                  key={msg.id}
                   className={msg.role === 'user' ? styles.mensagemUser : styles.mensagemIA}
                   data-author={msg.role === 'user' ? userData?.nome || 'Usuário Demo' : 'Assistente IA'}
                 >
@@ -563,7 +548,7 @@ export default function ChatConversa() {
                   <span className={styles.horario}>{formatarData(msg.createdAt)}</span>
                 </div>
               ))}
-              
+
               {processandoResposta && (
                 <div className={styles.digitando}>
                   <div className={styles.bolinha}></div>
@@ -574,18 +559,18 @@ export default function ChatConversa() {
             </>
           )}
         </div>
-        
+
         <form onSubmit={enviarMensagem} className={styles.enviarMensagem}>
-          <input 
-            type="text" 
+          <input
+            type="text"
             value={novaMsg}
             onChange={(e) => setNovaMsg(e.target.value)}
             placeholder="Digite sua mensagem..."
             className={styles.inputMensagem}
             disabled={loading || enviandoMensagem}
           />
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             className={styles.botaoEnviar}
             disabled={loading || enviandoMensagem || !novaMsg.trim()}
           >
@@ -601,14 +586,14 @@ export default function ChatConversa() {
             <h3>Confirmar exclusão</h3>
             <p>Tem certeza que deseja excluir esta conversa? Esta ação não pode ser desfeita.</p>
             <div className={styles.modalBotoes}>
-              <button 
+              <button
                 onClick={() => excluirConversa(mostrarModalExclusao)}
                 className={styles.botaoConfirmarExclusao}
                 disabled={processandoAcao}
               >
                 {processandoAcao ? 'Excluindo...' : 'Sim, excluir'}
               </button>
-              <button 
+              <button
                 onClick={() => setMostrarModalExclusao(null)}
                 className={styles.botaoCancelar}
                 disabled={processandoAcao}
@@ -619,6 +604,9 @@ export default function ChatConversa() {
           </div>
         </div>
       )}
+
+      {loading && <FullScreenLoader texto="Carregando mensagens..." />}
+      {loadingNewConversa && <FullScreenLoader texto="Sua nova conversa está sendo criada..." />}
     </div>
   );
 } 

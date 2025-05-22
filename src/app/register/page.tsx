@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, FormEvent } from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import styles from './page.module.scss'
+import Link from 'next/link'
 import { handleCreateUser } from '../actions/serverActions'
+import styles from './page.module.scss'
 
 export default function Register() {
   const [loading, setLoading] = useState(false)
@@ -47,7 +47,6 @@ export default function Register() {
       // Verifica se o registro foi bem-sucedido
       if (result && result.success) {
         console.log("Registro bem-sucedido, redirecionando...");
-        // Se não houver erro, redireciona para o login com mensagem de sucesso
         router.push('/?registered=true');
       } else {
         // Se não tiver a propriedade success, trata como erro

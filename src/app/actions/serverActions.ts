@@ -52,7 +52,7 @@ export async function handleCreateUser(formData: FormData) {
       nome,
       email,
       senha,
-      role: "FREE"
+      role: "ALUNO"
     });
 
     console.log("Resposta do servidor:", response.data);

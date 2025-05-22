@@ -25,6 +25,8 @@ export async function middleware(req: NextRequest) {
             headers: { Authorization: `Bearer ${token}` },
         });
 
+        console.log(response)
+
         const user = response.data
 
         console.log(user)

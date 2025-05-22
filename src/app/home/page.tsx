@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import styles from './home.module.scss'
-import { handleIniciarConversa } from '../actions/serverActions'
+import { handleIniciarConversa, handleListarConversas } from '../actions/serverActions'
 
 export default function Home() {
   const [loading, setLoading] = useState(false)
@@ -12,8 +12,21 @@ export default function Home() {
   async function iniciarNovoChat() {
     setLoading(true)
     try {
-      const resultado = await handleIniciarConversa('Nova Conversa')
-      router.push(`/home/${resultado.id}`)
+      const resultado = await handleIniciarConversa('Nova Conversa');
+
+
+      const conversas = await handleListarConversas()
+
+      if (conversas && Array.isArray(conversas) && conversas.length > 0) {
+        const conversasOrdenadas = [...conversas].sort((a, b) => {
+          const dataA = new Date(a.updatedAt).getTime()
+          const dataB = new Date(b.updatedAt).getTime()
+          return dataB - dataA
+        })
+
+        router.push(`/home/${conversasOrdenadas[0].id}`)
+      } 
+      
     } catch (error) {
       console.error('Erro ao iniciar conversa:', error)
     } finally {
@@ -25,7 +38,7 @@ export default function Home() {
     <div className={styles.container}>
       <div className={styles.content}>
         <h1 className={styles.title}>Bem-vindo à Sumy IA</h1>
-        
+
         <div className={styles.description}>
           <h2>O que a Sumy pode fazer por você?</h2>
           <ul>
@@ -51,7 +64,7 @@ export default function Home() {
           </div>
         </div>
 
-        <button 
+        <button
           className={styles.startButton}
           onClick={iniciarNovoChat}
           disabled={loading}

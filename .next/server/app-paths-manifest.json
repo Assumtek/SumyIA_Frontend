@@ -1,5 +1,1 @@
-{
-  "/page": "app/page.js",
-  "/home/[conversaId]/page": "app/home/[conversaId]/page.js",
-  "/icon.svg/route": "app/icon.svg/route.js"
-}
+{}

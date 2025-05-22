@@ -47,7 +47,7 @@ export default function Register() {
       // Verifica se o registro foi bem-sucedido
       if (result && result.success) {
         console.log("Registro bem-sucedido, redirecionando...");
-        router.push('/?registered=true');
+        router.push('/login/?registered=true');
       } else {
         // Se não tiver a propriedade success, trata como erro
         console.error("Resposta inesperada:", result);

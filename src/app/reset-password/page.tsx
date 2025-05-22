@@ -6,7 +6,8 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import styles from '../page.module.scss'
 import { handleResetPassword } from '../actions/serverActions'
 
-export default function ResetPassword() {
+// Componente que usa useSearchParams
+function ResetPasswordContent() {
   const [loading, setLoading] = useState(false)
   const [validatingToken, setValidatingToken] = useState(true)
   const [error, setError] = useState('')
@@ -78,104 +79,107 @@ export default function ResetPassword() {
   // Se estiver validando o token, mostrar carregando
   if (validatingToken) {
     return (
-      <Suspense fallback={<div>Carregando...</div>}>
-        <div className={styles.containerCenter}>
-          <h1 className={styles.title}>Sumy IA</h1>
-          <div className={styles.login}>
-            <p className={styles.carregando}>Verificando token de recuperação...</p>
-          </div>
+      <div className={styles.containerCenter}>
+        <h1 className={styles.title}>Sumy IA</h1>
+        <div className={styles.login}>
+          <p className={styles.carregando}>Verificando token de recuperação...</p>
         </div>
-      </Suspense>
+      </div>
     )
   }
 
   // Se houver erro no token, mostrar mensagem
   if (!token) {
     return (
-      <Suspense fallback={<div>Carregando...</div>}>
-        <div className={styles.containerCenter}>
-          <h1 className={styles.title}>Sumy IA</h1>
-          <div className={styles.login}>
-            <div className={styles.error}>{error}</div>
-            <div className={styles.registerLink}>
-              <Link href="/forgot-password">
-                Solicitar novo link de recuperação
-              </Link>
-            </div>
-          </div>
-        </div>
-      </Suspense>
-    )
-  }
-
-  return (
-    <Suspense fallback={<div>Carregando...</div>}>
       <div className={styles.containerCenter}>
         <h1 className={styles.title}>Sumy IA</h1>
-        <p className={styles.subtitle}>Digite e confirme sua nova senha</p>
-        
         <div className={styles.login}>
-          <form onSubmit={onSubmit}>
-            
-            {success && (
-              <div className={styles.success}>
-                {success}
-                <p className={styles.redirectMessage}>Redirecionando para a página de login...</p>
-              </div>
-            )}
-
-            <div className={styles.inputGroup}>
-              <label htmlFor="password" className={styles.label}>Nova Senha</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Digite sua nova senha"
-                className={styles.input}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                minLength={6}
-              />
-            </div>
-
-            <div className={styles.inputGroup}>
-              <label htmlFor="confirmPassword" className={styles.label}>Confirme a Senha</label>
-              <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                placeholder="Confirme sua nova senha"
-                className={styles.input}
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-                minLength={6}
-              />
-            </div>
-
-            {error && (
-              <div className={styles.error}>
-                {error}
-              </div>
-            )}
-
-            <button 
-              type="submit" 
-              className={styles.loginButton}
-              disabled={loading || !password || !confirmPassword}
-            >
-              {loading ? 'Processando...' : 'Redefinir Senha'}
-            </button>
-          </form>
-
+          <div className={styles.error}>{error}</div>
           <div className={styles.registerLink}>
-            <Link href="/">
-              Voltar ao login
+            <Link href="/forgot-password">
+              Solicitar novo link de recuperação
             </Link>
           </div>
         </div>
       </div>
+    )
+  }
+
+  return (
+    <div className={styles.containerCenter}>
+      <h1 className={styles.title}>Sumy IA</h1>
+      <p className={styles.subtitle}>Digite e confirme sua nova senha</p>
+      
+      <div className={styles.login}>
+        <form onSubmit={onSubmit}>
+          
+          {success && (
+            <div className={styles.success}>
+              {success}
+              <p className={styles.redirectMessage}>Redirecionando para a página de login...</p>
+            </div>
+          )}
+
+          <div className={styles.inputGroup}>
+            <label htmlFor="password" className={styles.label}>Nova Senha</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Digite sua nova senha"
+              className={styles.input}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              minLength={6}
+            />
+          </div>
+
+          <div className={styles.inputGroup}>
+            <label htmlFor="confirmPassword" className={styles.label}>Confirme a Senha</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Confirme sua nova senha"
+              className={styles.input}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              minLength={6}
+            />
+          </div>
+
+          {error && (
+            <div className={styles.error}>
+              {error}
+            </div>
+          )}
+
+          <button 
+            type="submit" 
+            className={styles.loginButton}
+            disabled={loading || !password || !confirmPassword}
+          >
+            {loading ? 'Processando...' : 'Redefinir Senha'}
+          </button>
+        </form>
+
+        <div className={styles.registerLink}>
+          <Link href="/">
+            Voltar ao login
+          </Link>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// Componente principal que envolve o conteúdo em Suspense
+export default function ResetPassword() {
+  return (
+    <Suspense fallback={<div>Carregando...</div>}>
+      <ResetPasswordContent />
     </Suspense>
   )
 } 

@@ -7,7 +7,8 @@ import { toast } from 'react-toastify'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { handleLogin, handleListarConversas } from './actions/serverActions'
 
-export default function LoginForm() {
+// Componente que usa useSearchParams
+function LoginContent() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
@@ -73,72 +74,79 @@ export default function LoginForm() {
   }
 
   return (
-    <Suspense fallback={<div>Carregando...</div>}>
-      <div className={styles.containerCenter}>
-        <h1 className={styles.title}>Sumy IA</h1>
-        <p className={styles.subtitle}>Faça login para começar a conversar</p>
-        
-        <div className={styles.login}>
-          <form onSubmit={onSubmit}>
-            
-            {success && (
-              <div className={styles.success}>
-                {success}
-              </div>
-            )}
-
-            <div className={styles.inputGroup}>
-              <label htmlFor="email" className={styles.label}>Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Digite seu email"
-                className={styles.input}
-                required
-              />
+    <div className={styles.containerCenter}>
+      <h1 className={styles.title}>Sumy IA</h1>
+      <p className={styles.subtitle}>Faça login para começar a conversar</p>
+      
+      <div className={styles.login}>
+        <form onSubmit={onSubmit}>
+          
+          {success && (
+            <div className={styles.success}>
+              {success}
             </div>
+          )}
 
-            <div className={styles.inputGroup}>
-              <div className={styles.labelRow}>
-                <label htmlFor="senha" className={styles.label}>Senha</label>
-                <Link href="/forgot-password" className={styles.forgotPassword}>
-                  Esqueceu a senha?
-                </Link>
-              </div>
-              <input
-                type="password"
-                id="senha"
-                name="senha"
-                placeholder="Digite sua senha"
-                className={styles.input}
-                required
-              />
-            </div>
-
-            {error && (
-              <div className={styles.error}>
-                {error}
-              </div>
-            )}
-
-            <button 
-              type="submit" 
-              className={styles.loginButton}
-              disabled={loading}
-            >
-              {loading ? 'Carregando...' : 'Entrar'}
-            </button>
-          </form>
-
-          <div className={styles.registerLink}>
-            Não tem uma conta?
-            <Link href="/register">
-              Registre-se
-            </Link>
+          <div className={styles.inputGroup}>
+            <label htmlFor="email" className={styles.label}>Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Digite seu email"
+              className={styles.input}
+              required
+            />
           </div>
+
+          <div className={styles.inputGroup}>
+            <div className={styles.labelRow}>
+              <label htmlFor="senha" className={styles.label}>Senha</label>
+              <Link href="/forgot-password" className={styles.forgotPassword}>
+                Esqueceu a senha?
+              </Link>
+            </div>
+            <input
+              type="password"
+              id="senha"
+              name="senha"
+              placeholder="Digite sua senha"
+              className={styles.input}
+              required
+            />
+          </div>
+
+          {error && (
+            <div className={styles.error}>
+              {error}
+            </div>
+          )}
+
+          <button 
+            type="submit" 
+            className={styles.loginButton}
+            disabled={loading}
+          >
+            {loading ? 'Carregando...' : 'Entrar'}
+          </button>
+        </form>
+
+        <div className={styles.registerLink}>
+          Não tem uma conta?
+          <Link href="/register">
+            Registre-se
+          </Link>
         </div>
       </div>
+    </div>
+  )
+}
+
+// Componente principal que envolve o conteúdo em Suspense
+export default function LoginForm() {
+  return (
+    <Suspense fallback={<div>Carregando...</div>}>
+      <LoginContent />
     </Suspense>
   )
 }

@@ -32,29 +32,29 @@ function LoginContent() {
     try {
       // Obtém os dados do formulário diretamente
       const formData = new FormData(event.currentTarget)
-      
+
       // Verificação básica dos campos
       const email = formData.get('email') as string
       const senha = formData.get('senha') as string
-      
+
       if (!email || !senha) {
         setError('Preencha todos os campos')
         setLoading(false)
         return
       }
-      
+
       // Chama a server action handleLogin passando o FormData
       await handleLogin(formData)
-      
+
       // Busca as conversas do usuário para encontrar a mais recente
       try {
         const conversas = await handleListarConversas()
-        
+
         if (conversas && Array.isArray(conversas) && conversas.length > 0) {
           const conversasOrdenadas = [...conversas].sort((a, b) => {
             const dataA = new Date(a.updatedAt).getTime()
             const dataB = new Date(b.updatedAt).getTime()
-            return dataB - dataA 
+            return dataB - dataA
           })
 
           router.push(`/home/${conversasOrdenadas[0].id}`)
@@ -75,67 +75,73 @@ function LoginContent() {
 
   return (
     <div className={styles.containerCenter}>
-      <h1 className={styles.title}>Sumy IA</h1>
-      <p className={styles.subtitle}>Faça login para começar a conversar</p>
-      
-      <div className={styles.login}>
-        <form onSubmit={onSubmit}>
-          
-          {success && (
-            <div className={styles.success}>
-              {success}
-            </div>
-          )}
+      <div className={styles.equerda}>
+        <img src="/CapaForms.png" alt="Login" />
+      </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="email" className={styles.label}>Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Digite seu email"
-              className={styles.input}
-              required
-            />
+      <div className={styles.direita}>
+        <h1 className={styles.title}>SUMY<span>IA.</span></h1>
+        <p className={styles.subtitle}>Faça login para começar a conversar</p>
+
+        <div className={styles.login}>
+          <form onSubmit={onSubmit}>
+
+            {success && (
+              <div className={styles.success}>
+                {success}
+              </div>
+            )}
+
+            <div className={styles.inputGroup}>
+              <label htmlFor="email" className={styles.label}>Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Digite seu email"
+                className={styles.input}
+                required
+              />
+            </div>
+
+            <div className={styles.inputGroup}>
+              <div className={styles.labelRow}>
+                <label htmlFor="senha" className={styles.label}>Senha</label>
+                <Link href="/forgot-password" className={styles.forgotPassword}>
+                  Esqueceu a senha?
+                </Link>
+              </div>
+              <input
+                type="password"
+                id="senha"
+                name="senha"
+                placeholder="Digite sua senha"
+                className={styles.input}
+                required
+              />
+            </div>
+
+            {error && (
+              <div className={styles.error}>
+                {error}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              className={styles.loginButton}
+              disabled={loading}
+            >
+              {loading ? 'Carregando...' : 'Entrar'}
+            </button>
+          </form>
+
+          <div className={styles.registerLink}>
+            Não tem uma conta?
+            <Link href="/register">
+              Registre-se
+            </Link>
           </div>
-
-          <div className={styles.inputGroup}>
-            <div className={styles.labelRow}>
-              <label htmlFor="senha" className={styles.label}>Senha</label>
-              <Link href="/forgot-password" className={styles.forgotPassword}>
-                Esqueceu a senha?
-              </Link>
-            </div>
-            <input
-              type="password"
-              id="senha"
-              name="senha"
-              placeholder="Digite sua senha"
-              className={styles.input}
-              required
-            />
-          </div>
-
-          {error && (
-            <div className={styles.error}>
-              {error}
-            </div>
-          )}
-
-          <button 
-            type="submit" 
-            className={styles.loginButton}
-            disabled={loading}
-          >
-            {loading ? 'Carregando...' : 'Entrar'}
-          </button>
-        </form>
-
-        <div className={styles.registerLink}>
-          Não tem uma conta?
-          <Link href="/register">
-            Registre-se
-          </Link>
         </div>
       </div>
     </div>

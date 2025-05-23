@@ -5,15 +5,31 @@
 /* Importar os estilos da página principal */
 @import url("https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+.not-found_container__lMmoT {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
 .not-found_container__lMmoT * {
   font-family: "Inter", sans-serif;
 }
 
+.not-found_page__iJY_q {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1500px;
+  max-width: 100%;
+}
+
 .not-found_navbar__NAIuQ {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 25px 100px;
+  padding: 25px 0px;
   width: 100%;
   background-color: var(--branco);
   position: fixed;
@@ -21,6 +37,14 @@
   left: 0;
   right: 0;
   z-index: 1000;
+}
+.not-found_navbar__NAIuQ .not-found_navbar_container__mrwdc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 100px;
+  width: 100%;
+  max-width: 1500px;
 }
 .not-found_navbar__NAIuQ span {
   color: var(--main);
@@ -76,6 +100,10 @@
   .not-found_navbar__NAIuQ {
     padding: 20px 20px;
   }
+  .not-found_navbar__NAIuQ .not-found_navbar_container__mrwdc {
+    padding: 0px 20px;
+    max-width: 100%;
+  }
   .not-found_navbar__NAIuQ .not-found_esquerda__eJDOR h1 {
     font-size: 20px;
   }
@@ -91,6 +119,7 @@
   justify-content: center;
   padding: 135px 100px;
   gap: 20px;
+  max-width: 100%;
 }
 .not-found_header__fz1uP h1 {
   font-size: 55px;
@@ -174,6 +203,7 @@
   align-items: center;
   padding: 0px 100px;
   gap: 20px;
+  width: 100%;
 }
 .not-found_servicos__KkxmJ h1 {
   font-size: 40px;
@@ -199,7 +229,7 @@
   gap: 20px;
   margin-top: 60px;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
 }
@@ -222,7 +252,8 @@
 }
 @media (max-width: 800px) {
   .not-found_servicos__KkxmJ {
-    padding: 0px 20px;
+    padding: 0px 30px;
+    max-width: 100%;
   }
   .not-found_servicos__KkxmJ h1 {
     font-size: 30px;
@@ -373,6 +404,7 @@
   align-items: center;
   padding: 30px 100px 130px 100px;
   gap: 20px;
+  max-width: 100%;
 }
 .not-found_cta__WDz6t h1 {
   width: 700px;
@@ -436,9 +468,19 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  padding: 40px 100px;
+  justify-content: center;
+  padding: 40px 0px;
   border-top: 1px solid var(--cinza);
+  width: 100%;
+}
+.not-found_footer__vwzd8 .not-found_footer_container__7L52f {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 1500px;
+  max-width: 100%;
+  padding: 0px 100px;
 }
 .not-found_footer__vwzd8 .not-found_footer_direita__L1Wio {
   display: flex;
@@ -488,6 +530,15 @@
     padding: 30px 20px;
     gap: 20px;
     text-align: center;
+  }
+  .not-found_footer__vwzd8 .not-found_footer_container__7L52f {
+    padding: 0px 30px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
   }
   .not-found_footer__vwzd8 .not-found_footer_esquerda__iPTQX, .not-found_footer__vwzd8 .not-found_footer_direita__L1Wio {
     flex-direction: column;

@@ -6,7 +6,9 @@
 :root {
   --main: #0F62FE;
   --main2: #0045C7;
+  --main3: rgba(0, 70, 199, 0.342);
   --branco: #F9FAFB;
+  --branco2: #ffffff;
   --cinza: #B3B3B3;
   --cinza2: #dadada;
   --preto: #1E1E1E;
@@ -18,7 +20,7 @@
   padding: 0;
   outline: 0;
   box-sizing: border-box;
-  font-family: "Geist", sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 body {

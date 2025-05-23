@@ -2,16 +2,20 @@
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[9].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[9].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[13].oneOf[9].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[13].oneOf[9].use[5]!./src/app/home/[conversaId]/page.module.scss ***!
   \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 @charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 .page_pageContainer__t9EO9 {
   display: flex;
   height: 100vh;
   width: 100%;
+  max-height: 100vh;
+  overflow: hidden;
 }
 
 .page_sidebar__L5HNS {
   width: 360px;
-  background-color: #f5f7fa;
-  border-right: 1px solid #e1e1e1;
+  background-color: var(--branco2);
+  border-right: 1px solid var(--cinza2);
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -19,9 +23,16 @@
 
 /* Estilos para o logo/título da aplicação */
 .page_logoContainer__Kjikl {
-  padding: 20px;
+  padding: 15px 20px;
   text-align: center;
-  border-bottom: 1px solid #e1e1e1;
+  border-bottom: 1px solid var(--cinza2);
+}
+
+.page_sidebarLogo__na7xb .page_title__1_rCQ {
+  font-family: "Sora", sans-serif;
+}
+.page_sidebarLogo__na7xb .page_title__1_rCQ span {
+  color: var(--main);
 }
 
 .page_logoTitle__c06Ij {
@@ -37,7 +48,7 @@
   display: flex;
   align-items: center;
   padding: 20px;
-  border-bottom: 1px solid #e1e1e1;
+  border-bottom: 1px solid var(--cinza2);
   cursor: pointer;
   transition: background-color 0.2s;
 }
@@ -65,15 +76,16 @@
 }
 .page_userInfo__6i9s5 h4 {
   margin: 0;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   color: #333;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-family: "Sora", sans-serif;
 }
 .page_userInfo__6i9s5 p {
-  margin: 4px 0 0 0;
+  margin: 0px 0 0 0;
   font-size: 14px;
   color: #666;
   white-space: nowrap;
@@ -86,15 +98,18 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  border-bottom: 1px solid #e1e1e1;
+  border-bottom: 1px solid var(--cinza2);
+  font-family: "Sora", sans-serif;
 }
 .page_sidebarHeader__dalg1 h3 {
   margin: 0;
   font-size: 20px;
   color: #333;
+  font-family: "Sora", sans-serif;
+  font-weight: 600;
 }
 .page_sidebarHeader__dalg1 .page_novaConversaBtn__Wk7I1 {
-  background-color: #000000;
+  background-color: var(--main);
   color: white;
   border: none;
   border-radius: 6px;
@@ -105,17 +120,25 @@
   align-items: center;
   gap: 6px;
 }
+.page_sidebarHeader__dalg1 .page_novaConversaBtn__Wk7I1 img {
+  width: 18px;
+  height: 18px;
+  margin-right: 2px;
+}
 .page_sidebarHeader__dalg1 .page_novaConversaBtn__Wk7I1:hover {
-  background-color: rgba(0, 0, 0, 0.8156862745);
+  background-color: var(--main2);
+  transition: background-color 0.2s;
+  transform: scale(1.01);
 }
 .page_sidebarHeader__dalg1 .page_novaConversaBtn__Wk7I1 .page_btnText__jwA8a {
   display: inline-block;
+  font-weight: 500;
 }
 
 /* Estilos para o rodapé da sidebar */
 .page_sidebarFooter__y2wdf {
   margin-top: auto;
-  border-top: 1px solid #e1e1e1;
+  border-top: 1px solid var(--cinza2);
   padding: 15px;
 }
 
@@ -126,12 +149,14 @@
   padding: 15px;
   border: none;
   background: none;
-  color: #333;
-  font-size: 16px;
+  color: #000000;
+  font-weight: 500;
+  font-size: 17px;
   text-align: left;
   cursor: pointer;
   border-radius: 6px;
   transition: background-color 0.2s;
+  gap: 10px;
 }
 .page_footerButton__sQGr0:hover {
   background-color: rgba(0, 0, 0, 0.1019607843);
@@ -139,9 +164,12 @@
 
 .page_footerIcon__S7zMn {
   margin-right: 12px;
-  color: #666;
+  color: #000000;
   width: 20px;
   height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .page_conversasList__32Rqt {
@@ -151,6 +179,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  scrollbar-color: var(--cinza) var(--branco);
 }
 
 .page_conversaItem__7mUW_ {
@@ -166,8 +195,8 @@
   background-color: rgba(0, 0, 0, 0.1019607843);
 }
 .page_conversaItem__7mUW_.page_ativo__7Lx1C {
-  background-color: rgba(0, 0, 0, 0.1019607843);
-  border: 1px solid #000000;
+  background-color: var(--cinza2);
+  border: 1px solid var(--cinza);
 }
 .page_conversaItem__7mUW_ .page_conversaInfo__P4Str h4 {
   margin: 0 0 6px 0;
@@ -220,15 +249,18 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  max-height: 100vh;
   width: 100%;
-  background-color: #f9f9f9;
+  background-color: var(--branco1);
+  overflow: hidden;
 }
 
 .page_tituloAtualChat__pjjFG {
   background-color: #fff;
-  padding: 20px 25px;
+  padding: 23px 25px;
   font-size: 20px;
   font-weight: 500;
+  font-family: "Sora", sans-serif;
   border-bottom: 1px solid #e1e1e1;
   color: #333;
 }
@@ -236,22 +268,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.page_tituloAtualChat__pjjFG .page_botaoBaixarDocumento__ZjFKl {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #666;
-  padding: 8px;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s, color 0.2s;
-}
-.page_tituloAtualChat__pjjFG .page_botaoBaixarDocumento__ZjFKl:hover {
-  background-color: rgba(0, 0, 0, 0.1019607843);
-  color: #000000;
+  font-family: "Sora", sans-serif;
 }
 
 .page_mensagens__hp6_V {
@@ -264,6 +281,7 @@
   max-width: 1100px;
   width: 100%;
   margin: 0 auto;
+  min-height: 0;
 }
 
 .page_mensagemUser__f06wM, .page_mensagemIA__xevhU {
@@ -287,7 +305,11 @@
 
 .page_mensagemUser__f06wM {
   align-self: flex-end;
-  background-color: rgba(0, 0, 0, 0.8235294118);
+  background-color: var(--main2);
+  color: white;
+}
+.page_mensagemUser__f06wM ::selection {
+  background-color: var(--main);
   color: white;
 }
 .page_mensagemUser__f06wM .page_horario__Aq5y_ {
@@ -302,6 +324,19 @@
 }
 .page_mensagemIA__xevhU .page_horario__Aq5y_ {
   color: #888;
+}
+
+/* Supondo que .mensagemIA e .mensagemUser sejam as classes das mensagens */
+.page_mensagemIA__xevhU ul,
+.page_mensagemIA__xevhU ol,
+.page_mensagemUser__f06wM ul,
+.page_mensagemUser__f06wM ol {
+  padding-left: 28px; /* Garante alinhamento interno */
+}
+
+.page_mensagemIA__xevhU li,
+.page_mensagemUser__f06wM li {
+  margin-bottom: 5px; /* Espaçamento entre itens da lista */
 }
 
 .page_digitando__9_yOW {
@@ -365,6 +400,7 @@
   padding: 18px;
   background-color: white;
   border-top: 1px solid #e1e1e1;
+  flex-shrink: 0;
 }
 .page_enviarMensagem__v1kFb .page_inputMensagem__7ZDzX {
   flex: 1 1;
@@ -507,4 +543,94 @@
 }
 .page_modalContent__TMEB8 .page_modalBotoes__WLtM2 .page_botaoCancelar__OEhDP:hover:not(:disabled) {
   background-color: #e1e1e1;
+}
+
+.page_menuButton__O9ysy {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #fff;
+  margin-right: 16px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 16px;
+}
+
+.page_navMobile__waewt {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: var(--branco2);
+  border-bottom: 1px solid var(--cinza2);
+}
+.page_navMobile__waewt h1 {
+  font-size: 25px;
+  font-weight: 600;
+  font-family: "Sora", sans-serif;
+}
+.page_navMobile__waewt h1 span {
+  color: var(--main);
+}
+
+.page_navMobile__waewt {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .page_navMobile__waewt {
+    display: flex;
+  }
+  .page_sidebar__L5HNS {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    z-index: 2000;
+    background: var(--branco2);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08);
+    width: 80vw;
+    max-width: 340px;
+  }
+  .page_sidebar__L5HNS.page_aberta__5ypiK {
+    transform: translateX(0);
+  }
+  .page_menuButton__O9ysy {
+    display: flex;
+    position: static;
+    background: none;
+    color: #333;
+  }
+  .page_pageContainer__t9EO9 {
+    flex-direction: column;
+  }
+  .page_tituloAtualChat__pjjFG {
+    display: none;
+  }
+  .page_title2__eEiDQ {
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+.page_overlay__k7u8J {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .page_overlay__k7u8J {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 1999;
+    transition: background 0.2s;
+  }
 }

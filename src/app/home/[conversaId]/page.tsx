@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import Image from 'next/image';
 import Link from 'next/link';
 import styles from './page.module.scss';
 import { api } from '../../services/api';
@@ -78,6 +77,22 @@ export default function ChatConversa() {
   const router = useRouter();
   const mensagensRef = useRef<HTMLDivElement>(null);
   const conversaId = params.conversaId as string;
+
+
+  const [sidebarAberta, setSidebarAberta] = useState(false);
+
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth > 800) {
+        setSidebarAberta(true); // Em telas grandes, sempre aberta
+      } else {
+        setSidebarAberta(false); // Em telas pequenas, fechada por padrão
+      }
+    }
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Carregar dados do usuário
   useEffect(() => {
@@ -394,11 +409,20 @@ export default function ChatConversa() {
 
   return (
     <div className={styles.pageContainer}>
-      <div className={styles.sidebar}>
-        {/* Logo/Título da aplicação */}
+      <div className={styles.navMobile}>
+        <h1 className={styles.title2}>SUMY<span>IA.</span></h1>
+        <button
+          className={styles.menuButton}
+          onClick={() => setSidebarAberta((prev) => !prev)}
+          aria-label={sidebarAberta ? 'Fechar menu' : 'Abrir menu'}
+        >
+          {sidebarAberta ? '✖' : '☰'}
+        </button>
+      </div>
+      <div className={`${styles.sidebar} ${sidebarAberta ? styles.aberta : ''}`}>
         <div className={styles.logoContainer}>
           <div className={styles.sidebarLogo}>
-            <h1 className={styles.title}>Sumy IA</h1>
+            <h1 className={styles.title}>SUMY<span>IA.</span></h1>
           </div>
         </div>
 
@@ -416,7 +440,7 @@ export default function ChatConversa() {
         <div className={styles.sidebarHeader}>
           <h3>Conversas</h3>
           <button onClick={iniciarNovaConversa} className={styles.novaConversaBtn}>
-            <Plus size={18} />
+            <img src="/iconplus.svg" alt="Nova Conversa" width={18} height={18} />
             <span className={styles.btnText}>Nova</span>
           </button>
         </div>
@@ -502,15 +526,11 @@ export default function ChatConversa() {
         {/* Botões de navegação no rodapé da sidebar */}
         <div className={styles.sidebarFooter}>
           <button className={styles.footerButton} onClick={() => router.push('/profile')}>
-            <Settings size={20} className={styles.footerIcon} />
+            <img src="/iconConfigurate.svg" alt="Configurações" width={28} height={28} />
             Configurações
           </button>
-          <button className={styles.footerButton}>
-            <HelpCircle size={20} className={styles.footerIcon} />
-            Suporte
-          </button>
           <button className={styles.footerButton} onClick={handleLogoutClick}>
-            <LogOut size={20} className={styles.footerIcon} />
+            <img src="/iconDoor.svg" alt="Sair" width={25} height={25} />
             Sair
           </button>
         </div>
@@ -520,7 +540,7 @@ export default function ChatConversa() {
         <div className={styles.tituloAtualChat}>
           <div className={styles.tituloContainer}>
             <div>{conversa?.secao || 'Carregando...'}</div>
-            
+
           </div>
         </div>
 
@@ -607,6 +627,14 @@ export default function ChatConversa() {
 
       {loading && <FullScreenLoader texto="Carregando mensagens..." />}
       {loadingNewConversa && <FullScreenLoader texto="Sua nova conversa está sendo criada..." />}
+
+      {sidebarAberta && (
+        <div
+          className={styles.overlay}
+          onClick={() => setSidebarAberta(false)}
+          aria-label="Fechar menu"
+        />
+      )}
     </div>
   );
 } 

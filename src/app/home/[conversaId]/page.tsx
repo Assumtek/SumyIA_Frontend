@@ -407,6 +407,16 @@ export default function ChatConversa() {
 
   };
 
+  useEffect(() => {
+    function setRealVH() {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vr', `${vh}px`);
+    }
+    setRealVH();
+    window.addEventListener('resize', setRealVH);
+    return () => window.removeEventListener('resize', setRealVH);
+  }, []);
+
   return (
     <div className={styles.pageContainer}>
       <div className={styles.navMobile}>

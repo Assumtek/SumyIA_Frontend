@@ -1,10 +1,15 @@
 {
   "pages": {
-    "/home/[conversaId]/page": [
+    "/not-found": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/home/[conversaId]/page.css",
-      "static/chunks/app/home/[conversaId]/page.js"
+      "static/css/app/not-found.css",
+      "static/chunks/app/not-found.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -18,16 +23,11 @@
       "static/css/app/error.css",
       "static/chunks/app/error.js"
     ],
-    "/not-found": [
+    "/home/[conversaId]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/not-found.css",
-      "static/chunks/app/not-found.js"
-    ],
-    "/_not-found/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/css/app/home/[conversaId]/page.css",
+      "static/chunks/app/home/[conversaId]/page.js"
     ],
     "/profile/page": [
       "static/chunks/webpack.js",

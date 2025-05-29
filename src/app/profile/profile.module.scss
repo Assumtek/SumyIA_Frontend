@@ -1,57 +1,61 @@
 @import '../page.module.scss';
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 .containerCenter {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
   min-height: 100vh;
-  padding: 2rem 1rem;
-  background-color: #f8f9fa;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
 }
 
 .header {
+  max-width: 800px;
+  margin: 0 auto 2rem;
   display: flex;
   align-items: center;
-  margin-bottom: 2rem;
-  width: 100%;
-  max-width: 600px;
-  position: relative;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 1rem;
+  padding: 0;
+  
 }
 
 .backButton {
-  position: absolute;
-  left: 0;
-  background: none;
-  border: none;
-  color: #333;
-  font-size: 1rem;
-  cursor: pointer;
-  padding: 0.5rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  
+  padding: 0.5rem 1rem;
+  background: var(--main);
+  border: none;
+  border-radius: 8px;
+  color: var(--branco);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+
   &:hover {
-    color: #007bff;
+    background: var(--main2);
+    color: var(--branco);
   }
 }
 
-.title {
-  width: 100%;
-  text-align: center;
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: #333;
+
+.title, h1.title {
+  font-size: 35px;
+  font-family: 'Sora', sans-serif;
+  color: #1a1a1a;
+  margin: 0;
+  font-weight: 700;
 }
 
 .profileCard {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
   padding: 2rem;
-  width: 100%;
-  max-width: 600px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .avatarSection {
@@ -59,197 +63,96 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 2rem;
-  
-  h2 {
-    margin-top: 1rem;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #333;
-  }
 }
 
 .avatar {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background-color: #c0ca33;
+  width: 100px;
+  height: 100px;
+  background: #0F62FE;
   color: white;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 600;
+  margin-bottom: 1rem;
   position: relative;
-  margin-bottom: 0.5rem;
 }
 
 .editAvatarButton {
   position: absolute;
   bottom: 0;
   right: 0;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 0.25rem;
-  font-size: 0.75rem;
-  cursor: pointer;
+  background: white;
+  border: 2px solid #0F62FE;
+  color: #0F62FE;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  
+  cursor: pointer;
+  transition: all 0.3s ease;
+
   &:hover {
-    background-color: #f0f0f0;
+    background: #0F62FE;
+    color: white;
   }
 }
 
 .inputGroup {
   margin-bottom: 1.5rem;
-  
-  label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-    color: #333;
-    font-weight: 500;
-  }
 }
 
-.inputIcon {
+.label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   color: #666;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
 }
 
 .input {
   width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 0.8rem 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
   font-size: 1rem;
-  
+  transition: all 0.3s ease;
+
   &:focus {
+    border-color: #0F62FE;
     outline: none;
-    border-color: #007bff;
-  }
-  
-  &.disabled {
-    background-color: #f7f7f7;
-    color: #666;
-    cursor: not-allowed;
   }
 }
 
 .passwordSection {
-  margin-bottom: 1.5rem;
+  margin: 2rem 0;
+  text-align: center;
 }
 
 .changePasswordButton {
-  background: none;
-  border: none;
-  color: #007bff;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0;
-  
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-.passwordIcon {
-  color: #007bff;
-}
-
-.saveButton {
+  padding: 0.8rem 1.5rem;
+  background: var(--cinza);
+  border: none;
+  border-radius: 10px;
+  color: var(--preto);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
   width: 100%;
-  padding: 0.75rem;
-  background-color: #202124;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  
+  font-weight: 600;
+
   &:hover {
-    background-color: #333;
-  }
-  
-  &:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-}
-
-.saveIcon {
-  color: white;
-}
-
-.error {
-  background-color: #ffebee;
-  color: #c62828;
-  padding: 0.75rem;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-  font-size: 0.875rem;
-}
-
-.success {
-  background-color: #e8f5e9;
-  color: #2e7d32;
-  padding: 0.75rem;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-  font-size: 0.875rem;
-}
-
-.loading {
-  text-align: center;
-  color: #666;
-  padding: 2rem 0;
-}
-
-/* Estilos para o modal de alteração de senha */
-.modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.modal {
-  background-color: white;
-  border-radius: 8px;
-  padding: 2rem;
-  width: 90%;
-  max-width: 500px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  position: relative;
-  
-  h3 {
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-    font-size: 1.5rem;
+    background: var(--cinza2);
     color: #333;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  form {
-    margin-top: 1rem;
   }
 }
 
@@ -261,12 +164,156 @@
   border: none;
   color: #666;
   cursor: pointer;
-  
+  font-size: 0.9rem;
+  padding: 0.5rem;
+
   &:hover {
     color: #333;
   }
+} 
+
+.saveButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 1rem;
+  background: #0F62FE;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #0050d5;
+  }
+
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
 }
 
-.modalIcon {
-  color: #007bff;
+.modal{
+
+  .saveButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 1rem;
+    background: #0F62FE;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  
+    &:hover {
+      background: #0050d5;
+    }
+  
+    &:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.error {
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.success {
+  background: #dcfce7;
+  color: #16a34a;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+
+  h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--preto);
+    margin-bottom: 2rem;
+    font-family: 'Sora', sans-serif;
+  }
+
+  button {
+    background: none;
+    border: none;
+    color: var(--preto);
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: var(--vermelho);
+    color: var(--branco);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--vermelho2);
+      color: var(--branco);
+    }
+  }
+}
+
+
+
+@media (max-width: 768px) {
+  .containerCenter {
+    padding: 1rem;
+  }
+
+  .header {
+    padding: 1rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .backButton {
+    padding: 0.5rem;
+  }
+
+  .title {
+    font-size: 1.2rem;
+  }
+
+  .profileCard {
+    padding: 1.5rem;
+  }
 } 

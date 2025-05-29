@@ -57,13 +57,17 @@ function LoginContent() {
             return dataB - dataA
           })
 
-          router.push(`/home/${conversasOrdenadas[0].id}`)
+          if (conversasOrdenadas.length > 0) {
+            router.push(`/conversa/${conversasOrdenadas[0].id}`)
+          } else {
+            router.push('/conversa')
+          }
         } else {
-          router.push('/home')
+          router.push('/conversa')
         }
       } catch (err) {
         console.error('Erro ao buscar conversas:', err)
-        router.push('/home')
+        router.push('/conversa')
       }
     } catch (err) {
       console.error('Erro ao fazer login:', err)

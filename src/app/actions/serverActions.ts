@@ -4,6 +4,41 @@ import { cookies, headers } from "next/headers";
 import { api } from "../services/api";
 import { getCookiesServer } from "@/lib/cookieServer";
 
+
+// ADMIN
+
+export async function handleListarUsuarios() {
+  const token = getCookiesServer()
+  
+  try {
+    const response = await api.get("/api/admin/usuarios", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data
+
+  } catch (err: any) {
+    console.log("Erro ::::", err.data)
+    throw new Error(err.message);
+  }
+}
+
+export async function handleListarKpi() {
+  const token = getCookiesServer()
+  
+  try {
+    const response = await api.get("/api/admin/kpi", {
+      headers: { Authorization: `Bearer ${token}` },
+    }); 
+
+    return response.data
+
+  } catch (err: any) {
+    console.log("Erro ::::", err.data)
+    throw new Error(err.message);
+  }
+}
+
 export async function handleLogin(formData: FormData) {
   const email = formData.get("email");
   const senha = formData.get("senha");

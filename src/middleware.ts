@@ -14,22 +14,10 @@ export async function middleware(req: NextRequest) {
     //  Pega o token JWT nos cookies
     const token = getCookiesServer()
 
-    if (pathname.startsWith("/home")) {
-
-        // Se não tiver um JWT ele manda para pagina de login
-        if (!token) {
-            return NextResponse.redirect(new URL("/", req.url))
-        }
-
-        const response = await api.get("/api/usuarios/", {
-            headers: { Authorization: `Bearer ${token}` },
-        });
-
-        console.log(response)
-
-        const user = response.data
-
-        console.log(user)
+    if (!token) {
+        return NextResponse.redirect(new URL('/login', req.url))
     }
+
+    return NextResponse.next();
 }
 

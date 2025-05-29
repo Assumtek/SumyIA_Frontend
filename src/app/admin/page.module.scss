@@ -1,0 +1,812 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.pageContainer {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+.adminContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: var(--branco1);
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 360px;
+  background-color: var(--branco2);
+  border-right: 1px solid var(--cinza2);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Estilos para o logo/título da aplicação */
+.logoContainer {
+  padding: 15px 20px;
+  text-align: center;
+  border-bottom: 1px solid var(--cinza2);
+}
+
+.sidebarLogo {
+  .title {
+    font-family: 'Sora', sans-serif;
+    span {
+      color: var(--main);
+    }
+  }
+}
+
+.logoTitle {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.5px;
+}
+
+/* Estilos para o container de informações do usuário */
+.userInfoContainer {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid var(--cinza2);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: #0000001a;
+  }
+}
+
+.userAvatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #000000;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 600;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.userInfo {
+  overflow: hidden;
+  
+  h4 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: 'Sora', sans-serif;
+  }
+  
+  p {
+    margin: 0px 0 0 0;
+    font-size: 14px;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.sidebarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid var(--cinza2);
+  font-family: 'Sora', sans-serif;
+  h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+    font-family: 'Sora', sans-serif;
+    font-weight: 600;
+  }
+
+  .novaConversaBtn {
+    background-color: var(--main);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    img{
+      width: 18px;
+      height: 18px;
+      margin-right: 2px;
+    }
+    &:hover {
+      background-color: var(--main2);
+      transition: background-color 0.2s;
+      transform: scale(1.01);
+    }
+    
+    .btnText {
+      display: inline-block;
+      font-weight: 500;
+    }
+  }
+}
+
+/* Estilos para o rodapé da sidebar */
+.sidebarFooter {
+  margin-top: auto;
+  border-top: 1px solid var(--cinza2);
+  padding: 15px;
+}
+
+.footerButton {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 15px;
+  border: none;
+  background: none;
+  color: #000000;
+  font-weight: 500;
+  font-size: 17px;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+  gap: 10px;
+  
+  &:hover {
+    background-color: #0000001a;
+  }
+}
+
+.conversasList {
+  flex: 1;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.conversaLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: #0000001a;
+  }
+
+  img {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-height: 100vh;
+  width: 100%;
+  background-color: var(--branco1);
+  overflow: hidden;
+}
+
+.tituloAtualChat {
+  background-color: #fff;
+  padding: 23px 25px;
+  font-size: 20px;
+  font-weight: 500;
+  font-family: 'Sora', sans-serif;
+  border-bottom: 1px solid #e1e1e1;
+  color: #333;
+  
+  .tituloContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Sora', sans-serif;
+  }
+}
+
+.mensagens {
+  flex: 1;
+  overflow-y: auto;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 0;
+}
+
+.mensagemUser, .mensagemIA {
+  padding: 18px;
+  border-radius: 18px;
+  max-width: 80%;
+  position: relative;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  
+  p {
+    margin: 0;
+    line-height: 1.6;
+    font-size: 16px;
+  }
+  
+  .horario {
+    font-size: 12px;
+    margin-top: 8px;
+    display: block;
+    text-align: right;
+  }
+}
+
+.mensagemUser {
+  align-self: flex-end;
+  background-color: var(--main2);
+  color: white;
+  ::selection {
+    background-color: var(--main);
+    color: white;
+  }
+  
+  .horario {
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+.mensagemIA {
+  align-self: flex-start;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  color: #333;
+  
+  .horario {
+    color: #888;
+  }
+}
+
+/* Supondo que .mensagemIA e .mensagemUser sejam as classes das mensagens */
+.mensagemIA ul,
+.mensagemIA ol,
+.mensagemUser ul,
+.mensagemUser ol {
+  padding-left: 28px; /* Garante alinhamento interno */
+}
+
+.mensagemIA li,
+.mensagemUser li {
+  margin-bottom: 5px; /* Espaçamento entre itens da lista */
+}
+
+.digitando {
+  align-self: flex-start;
+  background-color: white;
+  border-radius: 15px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  gap: 6px;
+  margin-top: 10px;
+  
+  .bolinha {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #555;
+    animation: pulsar 1.4s infinite ease-in-out;
+    
+    &:nth-child(1) {
+      animation-delay: 0s;
+    }
+    
+    &:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    
+    &:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+  }
+}
+
+@keyframes pulsar {
+  0%, 100% {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+.carregando, .erro, .semMensagens, .semConversas {
+  text-align: center;
+  margin: 30px auto;
+  padding: 18px;
+  border-radius: 10px;
+  color: #666;
+  font-size: 16px;
+}
+
+.erro {
+  color: #e53935;
+  background-color: rgba(229, 57, 53, 0.1);
+}
+
+.semMensagens, .semConversas {
+  font-style: italic;
+}
+
+.enviarMensagem {
+  display: flex;
+  padding: 18px;
+  background-color: white;
+  border-top: 1px solid #e1e1e1;
+  flex-shrink: 0;
+  
+  .inputMensagem {
+    flex: 1;
+    padding: 14px 18px;
+    border: 1px solid #e1e1e1;
+    border-radius: 24px;
+    outline: none;
+    font-size: 16px;
+    
+    &:focus {
+      border-color: #000000;
+    }
+    
+    &:disabled {
+      background-color: #f5f5f5;
+    }
+  }
+  
+  .botaoEnviar {
+    margin-left: 12px;
+    padding: 0 20px;
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 24px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 54px;
+    height: 46px;
+    
+    &:hover:not(:disabled) {
+      background-color: #000000d1;
+    }
+    
+    &:disabled {
+      background-color: #bdbdbd;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// Estilos para o modo de edição
+.editarConversa {
+  width: 100%;
+  
+  .inputEditarConversa {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #e1e1e1;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 8px;
+    
+    &:focus {
+      border-color: #000000;
+      outline: none;
+    }
+  }
+  
+  .editarBotoes {
+    display: flex;
+    gap: 8px;
+    
+    button {
+      flex: 1;
+      padding: 6px 0;
+      border-radius: 4px;
+      font-size: 13px;
+      cursor: pointer;
+      border: none;
+      
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+    
+    .botaoSalvar {
+      background-color: #000000;
+      color: white;
+      
+      &:hover:not(:disabled) {
+        background-color: #000000d0;
+      }
+    }
+    
+    .botaoCancelar {
+      background-color: #f0f0f0;
+      color: #333;
+      
+      &:hover:not(:disabled) {
+        background-color: #e1e1e1;
+      }
+    }
+  }
+}
+
+// Modal de confirmação de exclusão
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
+  h3 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  p {
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .modalBotoes {
+    display: flex;
+    gap: 12px;
+    
+    button {
+      flex: 1;
+      padding: 10px 0;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+      
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+    
+    .botaoConfirmarExclusao {
+      background-color: #e53935;
+      color: white;
+      
+      &:hover:not(:disabled) {
+        background-color: #d32f2f;
+      }
+    }
+    
+    .botaoCancelar {
+      background-color: #f0f0f0;
+      color: #333;
+      
+      &:hover:not(:disabled) {
+        background-color: #e1e1e1;
+      }
+    }
+  }
+}
+
+// Botão de menu hamburguer para mobile
+.menuButton {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+}
+
+.navMobile {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background: white;
+  border-bottom: 1px solid var(--cinza2);
+
+  .title2 {
+    font-family: 'Sora', sans-serif;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    
+    span {
+      color: var(--main);
+    }
+  }
+}
+
+.adminContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: var(--branco1);
+  overflow: hidden;
+}
+
+.adminHeader {
+  background-color: #fff;
+  padding: 23px 25px;
+  font-size: 20px;
+  font-weight: 500;
+  font-family: 'Sora', sans-serif;
+  border-bottom: 1px solid #e1e1e1;
+  color: #333;
+  
+  .headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Sora', sans-serif;
+  }
+}
+
+.adminContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: 25px;
+}
+
+.adminDashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .dashboardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Sora', sans-serif;
+  }
+
+  .dashboardContent {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    width: 100%;
+  }
+
+  .dashboardCard {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e1e1e1;
+
+    .dashboardCardHeader {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Sora', sans-serif;
+      h3 {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--cinza1);
+      }
+    }
+
+    .dashboardCardNumber {
+      font-size: 28px;
+      font-weight: 600;
+      font-family: 'Sora', sans-serif;
+    }
+  }
+}
+
+.overlay {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .navMobile {
+    display: flex;
+  }
+
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    z-index: 2000;
+    background: var(--branco2);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.08);
+    width: 80vw;
+    max-width: 340px;
+  }
+
+  .sidebar.aberta {
+    transform: translateX(0);
+  }
+
+  .menuButton {
+    display: flex;
+  }
+
+  .overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.35);
+    z-index: 1999;
+    transition: background 0.2s;
+  }
+}
+
+.tableUsers {
+  margin-top: 40px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+
+  h2 {
+    font-size: 25px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    font-family: 'Sora', sans-serif;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    border: 1px solid #e1e1e1;
+  }
+
+  th, td {
+    padding: 18px 16px;
+    text-align: left;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  th {
+    background: #f3f3f3;
+    font-weight: 600;
+    color: #222;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  tr:not(:last-child) td {
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .userCell {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #e1e1e1;
+  }
+
+  .userName {
+    font-weight: 600;
+    color: #222;
+    font-size: 1.05rem;
+    font-family: 'Sora', sans-serif;
+  }
+
+  .userEmail {
+    color: #888;
+    font-size: 0.95rem;
+    margin-top: 2px;
+  }
+
+  .statusAtivo {
+    color: #2e7d32;
+    background: #e8f5e9;
+    padding: 4px 14px;
+    border-radius: 16px;
+    font-weight: 500;
+    font-size: 0.98rem;
+  }
+
+  .statusDesativo {
+    color: #b71c1c;
+    background: #ffebee;
+    padding: 4px 14px;
+    border-radius: 16px;
+    font-weight: 500;
+    font-size: 0.98rem;
+  }
+}
+
+.desativarBtn {
+  background: #f3f3f3;
+  color: #555;
+  border: 1px solid #e0e0e0;
+  border-radius: 14px;
+  padding: 4px 14px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-family: 'Sora', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border 0.2s, transform 0.1s;
+  box-shadow: none;
+
+  &:hover {
+    background: #e0e0e0;
+    color: #222;
+    border: 1px solid #bdbdbd;
+    transform: scale(1.03);
+  }
+
+  &:active {
+    background: #cccccc;
+    color: #222;
+    border: 1px solid #bdbdbd;
+  }
+} 

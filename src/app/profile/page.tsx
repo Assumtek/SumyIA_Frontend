@@ -6,6 +6,7 @@ import Link from 'next/link';
 import styles from './profile.module.scss';
 import { handleMe, handleUpdateUserProfile, handleChangePassword } from '../actions/serverActions';
 import { ArrowLeft, Save, Edit, Lock, User, Mail } from 'lucide-react';
+import FullScreenLoader from '../components/FullScreenLoader'
 
 type User = {
   id: string;
@@ -24,7 +25,7 @@ export default function Profile() {
   const [success, setSuccess] = useState('');
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
-  
+
   // Estados para o modal de alteração de senha
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [senhaAtual, setSenhaAtual] = useState('');
@@ -68,7 +69,7 @@ export default function Profile() {
     try {
       const formData = new FormData(e.currentTarget);
       const response = await handleUpdateUserProfile(formData);
-      
+
       setSuccess(response.message || 'Perfil atualizado com sucesso');
       if (response.user) {
         setUser(response.user);
@@ -90,13 +91,13 @@ export default function Profile() {
 
     try {
       const response = await handleChangePassword(senhaAtual, novaSenha, confirmarSenha);
-      
+
       setPasswordSuccess(response.message || 'Senha atualizada com sucesso');
       // Limpar campos após sucesso
       setSenhaAtual('');
       setNovaSenha('');
       setConfirmarSenha('');
-      
+
       // Fechar o modal após um pequeno delay
       setTimeout(() => {
         setShowPasswordModal(false);
@@ -113,39 +114,31 @@ export default function Profile() {
   // Gerar iniciais para o avatar
   const getInitials = (name: string) => {
     if (!name) return 'UD';
-    
+
     const nameParts = name.split(' ');
     if (nameParts.length === 1) return nameParts[0].substring(0, 2).toUpperCase();
-    
+
     return (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase();
   };
 
   // Se estiver carregando, mostrar mensagem de carregamento
   if (loading) {
-    return (
-      <div className={styles.containerCenter}>
-        <h1>Perfil do Usuário</h1>
-        <div className={styles.profileCard}>
-          <p className={styles.loading}>Carregando dados do perfil...</p>
-        </div>
-      </div>
-    );
+    return <FullScreenLoader texto="Carregando dados do perfil..." />
   }
 
   return (
     <div className={styles.containerCenter}>
       <div className={styles.header}>
-        <button onClick={() => router.back()} className={styles.backButton}>
+        <button onClick={() => router.push('/conversa')} className={styles.backButton}>
           <ArrowLeft size={18} />
           Voltar
         </button>
-        <h1 className={styles.title}>Perfil do Usuário</h1>
       </div>
-      
+
       <div className={styles.profileCard}>
         {error && <div className={styles.error}>{error}</div>}
         {success && <div className={styles.success}>{success}</div>}
-        
+
         <div className={styles.avatarSection}>
           <div className={styles.avatar}>
             {getInitials(nome || user?.nome || '')}
@@ -155,7 +148,7 @@ export default function Profile() {
           </div>
           <h2>Informações do Perfil</h2>
         </div>
-        
+
         <form onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>
             <label htmlFor="nome" className={styles.label}>
@@ -173,7 +166,7 @@ export default function Profile() {
               required
             />
           </div>
-          
+
           <div className={styles.inputGroup}>
             <label htmlFor="email" className={styles.label}>
               <Mail size={14} className={styles.inputIcon} />
@@ -189,42 +182,39 @@ export default function Profile() {
               required
             />
           </div>
-          
+
           <div className={styles.passwordSection}>
-            <button 
-              type="button" 
+            <button
+              type="button"
               className={styles.changePasswordButton}
               onClick={() => setShowPasswordModal(true)}
             >
-              <Lock size={14} className={styles.passwordIcon} />
               Alterar Senha
             </button>
           </div>
-          
-          <button 
-            type="submit" 
+
+          <button
+            type="submit"
             className={styles.saveButton}
             disabled={saving}
           >
             {saving ? 'Salvando...' : (
               <>
-                <Save size={16} className={styles.saveIcon} />
                 Salvar Alterações
               </>
             )}
           </button>
         </form>
       </div>
-      
+
       {/* Modal de alteração de senha */}
       {showPasswordModal && (
         <div className={styles.modalOverlay}>
           <div className={styles.modal}>
             <h3>
-              <Lock size={18} className={styles.modalIcon} />
               Alterar Senha
             </h3>
-            <button 
+            <button
               className={styles.closeButton}
               onClick={() => {
                 setShowPasswordModal(false);
@@ -237,14 +227,14 @@ export default function Profile() {
             >
               Cancelar
             </button>
-            
+
             <form onSubmit={handlePasswordChange}>
               {passwordError && <div className={styles.error}>{passwordError}</div>}
               {passwordSuccess && <div className={styles.success}>{passwordSuccess}</div>}
-              
+
               <div className={styles.inputGroup}>
                 <label htmlFor="senhaAtual">
-                  <Lock size={14} className={styles.inputIcon} />
+                  
                   Senha Atual
                 </label>
                 <input
@@ -256,10 +246,10 @@ export default function Profile() {
                   required
                 />
               </div>
-              
+
               <div className={styles.inputGroup}>
                 <label htmlFor="novaSenha">
-                  <Lock size={14} className={styles.inputIcon} />
+                  
                   Nova Senha
                 </label>
                 <input
@@ -272,10 +262,10 @@ export default function Profile() {
                   minLength={6}
                 />
               </div>
-              
+
               <div className={styles.inputGroup}>
                 <label htmlFor="confirmarSenha">
-                  <Lock size={14} className={styles.inputIcon} />
+                  
                   Confirmar Nova Senha
                 </label>
                 <input
@@ -288,15 +278,14 @@ export default function Profile() {
                   minLength={6}
                 />
               </div>
-              
-              <button 
-                type="submit" 
+
+              <button
+                type="submit"
                 className={styles.saveButton}
                 disabled={changingPassword}
               >
                 {changingPassword ? 'Atualizando...' : (
                   <>
-                    <Save size={16} className={styles.saveIcon} />
                     Atualizar Senha
                   </>
                 )}

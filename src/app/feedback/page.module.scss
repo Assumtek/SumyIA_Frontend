@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: var(--branco1);
+}
+
+.feedbackContainer {
+  width: 100%;
+  max-width: 800px;
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--cinza);
+}
+
+.inicialContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.inicialTitulo {
+  font-size: 32px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 30px;
+  font-family: 'Sora', sans-serif;
+}
+
+.inicialTexto {
+  margin-bottom: 40px;
+  max-width: 600px;
+
+  p {
+    font-size: 18px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+.inicialBtn {
+  padding: 15px 40px;
+  background-color: var(--main);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Sora', sans-serif;
+
+  &:hover {
+    background-color: var(--main2);
+    transform: scale(1.02);
+  }
+}
+
+.progressBar {
+  width: 100%;
+  height: 6px;
+  background-color: #e0e0e0;
+  border-radius: 3px;
+  margin-bottom: 40px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: var(--main);
+  transition: width 0.3s ease;
+}
+
+.perguntaContainer {
+  margin-bottom: 40px;
+}
+
+.pergunta {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 30px;
+  line-height: 1.4;
+  font-family: 'Sora', sans-serif;
+}
+
+.escalaContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.escalaBtn {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #e0e0e0;
+  border-radius: 50%;
+  background: white;
+  font-size: 18px;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    border-color: var(--main);
+    color: var(--main);
+    transform: scale(1.05);
+  }
+
+  &.selecionado {
+    background-color: var(--main);
+    border-color: var(--main);
+    color: white;
+  }
+}
+
+.textoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.textoInput {
+  width: 100%;
+  min-height: 120px;
+  padding: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 16px;
+  resize: vertical;
+  font-family: 'Inter', sans-serif;
+
+  &:focus {
+    outline: none;
+    border-color: var(--main);
+  }
+}
+
+.avancarBtn {
+  align-self: flex-end;
+  padding: 12px 30px;
+  background-color: var(--main);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background-color: var(--main2);
+  }
+
+  &:disabled {
+    background-color: #e0e0e0;
+    cursor: not-allowed;
+  }
+}
+
+.progressText {
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+}
+
+.finalizadoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.finalizadoTitulo {
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+  font-family: 'Sora', sans-serif;
+}
+
+.finalizadoTexto {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 40px;
+  line-height: 1.5;
+  font-family: 'Inter', sans-serif;
+}
+
+.finalizadoBtn {
+  padding: 15px 40px;
+  background-color: var(--main);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Sora', sans-serif;
+
+  &:hover {
+    background-color: var(--main2);
+    transform: scale(1.02);
+  }
+}
+

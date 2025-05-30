@@ -541,6 +541,26 @@
   }
 }
 
+.userAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--preto);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  overflow: hidden;
+}
+
+.avatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 // Botão de menu hamburguer para mobile
 .menuButton {
   display: none;
@@ -749,7 +769,19 @@
     height: 44px;
     border-radius: 50%;
     object-fit: cover;
-    background: #e1e1e1;
+  }
+
+  .avatarDefault {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--preto);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
   }
 
   .userName {

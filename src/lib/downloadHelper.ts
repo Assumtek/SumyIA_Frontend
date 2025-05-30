@@ -7,13 +7,9 @@ export async function downloadFile(url: string, token?: string) {
     if (!authToken) {
       throw new Error('Usuário não autenticado');
     }
-
-    console.log("Token de autenticação:", authToken);
-    console.log("URL base:", url);
     
     // Construir URL com o token como parâmetro de consulta
     const downloadUrl = `${url}?token=${encodeURIComponent(authToken)}`;
-    console.log("URL completa:", downloadUrl);
     
     // Criar um link temporário para download
     const link = document.createElement('a');

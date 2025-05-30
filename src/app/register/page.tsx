@@ -37,16 +37,13 @@ export default function Register() {
         return
       }
 
-      console.log("Enviando dados para registro:", { nome, email });
 
       // Chama a server action - note que agora esperamos um objeto retornado
       const result = await handleCreateUser(formData);
 
-      console.log("Resultado do registro:", result);
 
       // Verifica se o registro foi bem-sucedido
       if (result && result.success) {
-        console.log("Registro bem-sucedido, redirecionando...");
         router.push('/login/?registered=true');
       } else {
         // Se não tiver a propriedade success, trata como erro

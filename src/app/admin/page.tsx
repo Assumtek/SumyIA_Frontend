@@ -19,6 +19,7 @@ type User = {
   nome: string;
   email: string;
   role: string;
+  photoUrl?: string;
 };
 
 type KPI = {
@@ -48,6 +49,7 @@ type Users = {
     documentos: number;
     conversas: number;
   };
+  photoUrl?: string;
 };
 
 export default function AdminPage() {
@@ -170,7 +172,15 @@ export default function AdminPage() {
         {/* Informações do usuário no topo da sidebar */}
         <div className={styles.userInfoContainer} onClick={() => router.push('/profile')}>
           <div className={styles.userAvatar}>
-            {userData ? getInitials(userData.nome) : 'UD'}
+            {userData?.photoUrl == "" ? (
+              <img 
+                src={userData.photoUrl} 
+                alt={`Foto de ${userData.nome}`}
+                className={styles.avatarImage}
+              />
+            ) : (
+              getInitials(userData?.nome || 'UD')
+            )}
           </div>
           <div className={styles.userInfo}>
             <h4>{userData?.nome || 'Usuário Demo'}</h4>
@@ -274,13 +284,19 @@ export default function AdminPage() {
                   <tr key={user.id}>
                     <td>
                       <div className={styles.userCell}>
-                        <img
-                          src="/avatarDefault.png"
-                          alt={user.nome}
-                          className={styles.avatar}
-                          width={44}
-                          height={44}
-                        />
+                        {user.photoUrl ? (
+                          <img
+                            src={user.photoUrl}
+                            alt={user.nome}
+                            className={styles.avatar}
+                            width={44}
+                            height={44}
+                          />
+                        ) : (
+                          <div className={styles.avatarDefault}>
+                            {getInitials(user.nome)}
+                          </div>
+                        )}
                         <div>
                           <div className={styles.userName}>{user.nome}</div>
                           <div className={styles.userEmail}>{user.email}</div>

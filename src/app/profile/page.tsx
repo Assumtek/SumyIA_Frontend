@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, useEffect, FormEvent, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import styles from './profile.module.scss';
-import { handleMe, handleUpdateUserProfile, handleChangePassword } from '../actions/serverActions';
+import { handleMe, handleUpdateUserProfile, handleChangePassword, handleUpdatePhoto } from '../actions/serverActions';
 import { ArrowLeft, Save, Edit, Lock, User, Mail } from 'lucide-react';
 import FullScreenLoader from '../components/FullScreenLoader'
 
@@ -14,6 +14,7 @@ type User = {
   email: string;
   role: string;
   createdAt: string;
+  photoUrl: string;
 };
 
 export default function Profile() {
@@ -25,6 +26,8 @@ export default function Profile() {
   const [success, setSuccess] = useState('');
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Estados para o modal de alteração de senha
   const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -111,6 +114,42 @@ export default function Profile() {
     }
   }
 
+  // Função para lidar com o upload da foto
+  async function handlePhotoUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validar tipo de arquivo
+    if (!file.type.startsWith('image/')) {
+      setError('Por favor, selecione uma imagem válida.');
+      return;
+    }
+
+    // Validar tamanho do arquivo (5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      setError('A imagem deve ter no máximo 5MB.');
+      return;
+    }
+
+    try {
+      setUploadingPhoto(true);
+      setError('');
+      setSuccess('');
+
+      const formData = new FormData();
+      formData.append('foto', file);
+
+      const data = await handleUpdatePhoto(formData);
+      setUser(data);
+      setSuccess('Foto atualizada com sucesso!');
+    } catch (err: any) {
+      console.error('Erro ao atualizar foto:', err);
+      setError(err.message || 'Erro ao atualizar a foto');
+    } finally {
+      setUploadingPhoto(false);
+    }
+  }
+
   // Gerar iniciais para o avatar
   const getInitials = (name: string) => {
     if (!name) return 'UD';
@@ -124,6 +163,10 @@ export default function Profile() {
   // Se estiver carregando, mostrar mensagem de carregamento
   if (loading) {
     return <FullScreenLoader texto="Carregando dados do perfil..." />
+  }
+
+  if (uploadingPhoto) {
+    return <FullScreenLoader texto="Carregando foto..." />
   }
 
   return (
@@ -141,10 +184,33 @@ export default function Profile() {
 
         <div className={styles.avatarSection}>
           <div className={styles.avatar}>
-            {getInitials(nome || user?.nome || '')}
-            <button className={styles.editAvatarButton}>
-              <Edit size={12} />
+            {user?.photoUrl ? (
+              <img 
+                src={user.photoUrl} 
+                alt={`Foto de ${nome || user?.nome}`}
+                className={styles.avatarImage}
+              />
+            ) : (
+              getInitials(nome || user?.nome || '')
+            )}
+            <button 
+              className={styles.editAvatarButton}
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploadingPhoto}
+            >
+              {uploadingPhoto ? (
+                <div className={styles.loadingSpinner} />
+              ) : (
+                <Edit size={12} />
+              )}
             </button>
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handlePhotoUpload}
+              accept="image/*"
+              style={{ display: 'none' }}
+            />
           </div>
           <h2>Informações do Perfil</h2>
         </div>
@@ -234,7 +300,7 @@ export default function Profile() {
 
               <div className={styles.inputGroup}>
                 <label htmlFor="senhaAtual">
-                  
+
                   Senha Atual
                 </label>
                 <input
@@ -249,7 +315,7 @@ export default function Profile() {
 
               <div className={styles.inputGroup}>
                 <label htmlFor="novaSenha">
-                  
+
                   Nova Senha
                 </label>
                 <input
@@ -265,7 +331,7 @@ export default function Profile() {
 
               <div className={styles.inputGroup}>
                 <label htmlFor="confirmarSenha">
-                  
+
                   Confirmar Nova Senha
                 </label>
                 <input

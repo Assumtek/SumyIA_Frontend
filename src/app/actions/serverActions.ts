@@ -6,7 +6,6 @@ import { getCookiesServer } from "@/lib/cookieServer";
 
 
 // ADMIN
-
 export async function handleListarUsuarios() {
   const token = getCookiesServer()
   
@@ -18,7 +17,7 @@ export async function handleListarUsuarios() {
     return response.data
 
   } catch (err: any) {
-    console.log("Erro ::::", err.data)
+    console.error("Erro ::::", err.data)
     throw new Error(err.message);
   }
 }
@@ -34,7 +33,7 @@ export async function handleListarKpi() {
     return response.data
 
   } catch (err: any) {
-    console.log("Erro ::::", err.data)
+    console.error("Erro ::::", err.data)
     throw new Error(err.message);
   }
 }
@@ -43,7 +42,6 @@ export async function handleLogin(formData: FormData) {
   const email = formData.get("email");
   const senha = formData.get("senha");
 
-  console.log("aqui", email, senha)
 
   if (!email || !senha) {
     throw new Error("Preencha todos os campos");
@@ -66,7 +64,7 @@ export async function handleLogin(formData: FormData) {
       httpOnly: false,
     });
   } catch (err: any) {
-    console.log("Erro ::::", err.data)
+    console.error("Erro ::::", err.data)
     throw new Error(err.message);
   }
 }
@@ -81,7 +79,6 @@ export async function handleCreateUser(formData: FormData) {
   }
 
   try {
-    console.log("Enviando requisição para registro de usuário:", { nome, email });
     
     const response = await api.post("/api/usuarios/registro", {
       nome,
@@ -89,8 +86,6 @@ export async function handleCreateUser(formData: FormData) {
       senha,
       role: "ALUNO"
     });
-
-    console.log("Resposta do servidor:", response.data);
     
     // Se chegou aqui, a requisição foi bem-sucedida
     return { success: true };
@@ -130,10 +125,79 @@ export async function handleMe() {
 
 
   } catch (err: any) {
-    console.log("Erro ::::", err.data)
+    console.error("Erro ::::", err.data)
     throw new Error(err.message);
   }
 }
+
+export async function handleUpdatePhoto(formData: FormData) {
+  const token = getCookiesServer();
+  
+  try {
+    const response = await api.put('/api/usuarios/photo', formData, { 
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data;
+  } catch (err: any) {
+    console.error("Erro ao atualizar foto:", err);
+    throw new Error("Erro ao atualizar a foto");
+  }
+}
+
+export async function handleListarFeedback() {
+  const token = getCookiesServer()
+
+  try {
+    const response = await api.get('/api/feedback', { 
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data
+
+  } catch (err: any) {
+    console.error("Erro ao listar feedback:", err);
+    throw new Error("Erro ao listar feedback");
+  }
+}
+
+export async function handleCriarFeedback(formData: FormData) {
+  const token = getCookiesServer()
+
+  try {
+    const data = JSON.parse(formData.get('data') as string);
+    
+    const response = await api.post('/api/feedback', {
+      utilidade: Number(data.utilidade),
+      facilidade: Number(data.facilidade),
+      design: Number(data.design),
+      confiabilidade: Number(data.confiabilidade),
+      recomendacao: Number(data.recomendacao),
+      valorJusto: Number(data.valorJusto),
+      recursoFaltando: String(data.recursoFaltando)
+    }, {  
+      headers: { 
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+    });
+
+    return response.data  
+
+  } catch (err: any) {
+    console.error("Erro ao criar feedback:", err);
+    throw new Error("Erro ao criar feedback");
+  }
+}
+
+
+
+
+
+
+
+
+
 
 export async function handleListarConversas() {
   const token = getCookiesServer()
@@ -147,7 +211,7 @@ export async function handleListarConversas() {
     return response.data  
 
   } catch (err: any) {
-    console.log("Erro ::::", err.data)
+    console.error("Erro ::::", err.data)
     throw new Error(err.message);
   }
 }
@@ -164,7 +228,7 @@ export async function handleListarMensagensConversa(conversaId: string) {
     return response.data  
 
   } catch (err: any) {
-    console.log("Erro ::::", err.data)
+    console.error("Erro ::::", err.data)
     throw new Error(err.message);
   }
 }
@@ -180,25 +244,23 @@ export async function handleEnviarResposta(conversaId: string, mensagem: string)
     return response.data  
 
   } catch (err: any) {
-    console.log("Erro ::::", err.data)
+    console.error("Erro ::::", err.data)
     throw new Error(err.message);
   }
 }
 
 export async function handleIniciarConversa(p0: string) {
   const token = getCookiesServer()
-  console.log("Token recebido:", token);
   try { 
     const response = await api.post('/api/conversa/iniciar', {
       secao: p0  
     }, { headers: { Authorization: `Bearer ${token}` } });
 
-    console.log("Resposta da API (NOVA CONVERSA):", response.data);
 
     return response.data
 
   } catch (err: any) {
-    console.log("Erro ::::", err.data)
+    console.error("Erro ::::", err.data)
     throw new Error(err.message);
   }
 }
@@ -301,10 +363,6 @@ export async function handleChangePassword(senhaAtual: string, novaSenha: string
       throw new Error("A nova senha deve ter pelo menos 6 caracteres");
     }
 
-    console.log("Token recebido:", token);
-    console.log("Chamando handleChangePassword");
-    console.log("Senha atual:", senhaAtual);
-    console.log("Nova senha:", novaSenha);
     
     const response = await api.put("/api/usuarios/senha", {
       senhaAtual,
@@ -313,7 +371,6 @@ export async function handleChangePassword(senhaAtual: string, novaSenha: string
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    console.log("Resposta da API (ALTERAR SENHA):", response.data);
     
     return { success: true, message: "Senha atualizada com sucesso" };
   } catch (err: any) {

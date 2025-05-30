@@ -52,6 +52,7 @@ type User = {
   nome: string;
   email: string;
   role: string;
+  photoUrl: string;
 };
 
 export default function ChatConversa() {
@@ -229,8 +230,6 @@ export default function ChatConversa() {
 
       // Enviar a mensagem para a API
       const response = await handleEnviarResposta(conversaId, mensagemTexto);
-
-      console.log('Resposta da API:', response);
 
       if (response && response.pergunta) {
         // Se a API retornar a resposta da IA no campo 'pergunta'
@@ -440,7 +439,15 @@ export default function ChatConversa() {
         {/* Informações do usuário no topo da sidebar */}
         <div className={styles.userInfoContainer} onClick={() => router.push('/profile')}>
           <div className={styles.userAvatar}>
-            {userData ? getInitials(userData.nome) : 'UD'}
+            {userData?.photoUrl ? (
+              <img 
+                src={userData.photoUrl} 
+                alt={`Foto de ${userData.nome}`}
+                className={styles.avatarImage}
+              />
+            ) : (
+              getInitials(userData?.nome || 'UD')
+            )}
           </div>
           <div className={styles.userInfo}>
             <h4>{userData?.nome || 'Usuário Demo'}</h4>

@@ -20,7 +20,11 @@ export async function middleware(req: NextRequest) {
     const { pathname } = req.nextUrl
 
     //  A documentação pede isso...
-    if (pathname.startsWith("/_next") || pathname === "/") {
+    if (pathname.startsWith("/_next") || 
+        pathname === "/" || 
+        pathname.startsWith("/images") || 
+        pathname.startsWith("/assets") ||
+        pathname.match(/\.(jpg|jpeg|png|gif|ico|svg|webp)$/)) {
         return NextResponse.next()
     }
 

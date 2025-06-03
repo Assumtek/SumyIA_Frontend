@@ -31,7 +31,7 @@ export async function middleware(req: NextRequest) {
     //  Pega o token JWT nos cookies
     const token = getCookiesServer()
 
-    if (!token && pathname !== "/login" && pathname !== "/") {
+    if (!token && pathname !== "/login" && pathname !== "/" && pathname !== "/register"  && pathname !== "/reset-password" && pathname !== "/forgot-password" && pathname !== "/admin") {
         return NextResponse.redirect(new URL('/login', req.url))
     }
     

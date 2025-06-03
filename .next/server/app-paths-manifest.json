@@ -1,5 +1,5 @@
 {
-  "/feedback/page": "app/feedback/page.js",
-  "/conversa/page": "app/conversa/page.js",
-  "/conversa/[conversaId]/page": "app/conversa/[conversaId]/page.js"
+  "/page": "app/page.js",
+  "/login/page": "app/login/page.js",
+  "/icon.svg/route": "app/icon.svg/route.js"
 }

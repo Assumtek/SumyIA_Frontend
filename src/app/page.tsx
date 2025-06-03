@@ -8,6 +8,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 export default function LP() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   const navbarRef = useRef<HTMLDivElement>(null);
   const menuLinksRef = useRef<HTMLDivElement>(null);
   const ctaButtonRef = useRef<HTMLAnchorElement>(null);
@@ -25,6 +26,20 @@ export default function LP() {
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
+      // Configurar estado inicial dos elementos
+      gsap.set([
+        navbarRef.current,
+        menuLinksRef.current?.querySelectorAll('a'),
+        ctaButtonRef.current,
+        headerTitleRef.current,
+        headerTextRef.current,
+        headerButtonsRef.current,
+        headerImageRef.current,
+        servicosTitleRef.current,
+        servicosTextRef.current,
+        servicosContainerRef.current?.querySelectorAll(`.${styles.servico}`)
+      ], { opacity: 0 });
+
       // Animação inicial do menu
       gsap.fromTo(navbarRef.current,
         { y: -100, opacity: 0 },
@@ -32,7 +47,12 @@ export default function LP() {
           y: 0,
           opacity: 1,
           duration: 0.5,
-          ease: "power2.out"
+          ease: "power2.out",
+          onComplete: () => {
+            if (containerRef.current) {
+              containerRef.current.classList.add(styles.visible);
+            }
+          }
         }
       );
 
@@ -158,7 +178,7 @@ export default function LP() {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={containerRef}>
 
       <div className={styles.page}>
 

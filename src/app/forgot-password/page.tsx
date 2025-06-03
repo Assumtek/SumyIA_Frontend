@@ -5,11 +5,13 @@ import Link from 'next/link'
 import styles from './page.module.scss'
 import { useRouter } from 'next/navigation'
 import { handleForgotPassword } from '../actions/serverActions'
+import Image from 'next/image'
 
 export default function ForgotPassword() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  const [imageLoading, setImageLoading] = useState(true)
   const router = useRouter()
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -49,18 +51,26 @@ export default function ForgotPassword() {
 
   return (
     <div className={styles.containerCenter}>
-
       <div className={styles.equerda}>
-        <img src="/CapaForms.png" alt="Login" />
+        <div className={`${styles.imageContainer} ${imageLoading ? styles.loading : ''}`}>
+          <Image 
+            src="/CapaForms.png" 
+            alt="Login" 
+            width={3840} 
+            height={3800}
+            priority
+            onLoadingComplete={() => setImageLoading(false)}
+            className={styles.image}
+          />
+        </div>
       </div>
 
-      <div className={styles.direita}>
+      <div className={`${styles.direita} ${imageLoading ? styles.hidden : ''}`}>
         <h1 className={styles.title}>SUMY<span>IA.</span></h1>
         <p className={styles.subtitle}>Informe seu email para receber instruções de recuperação</p>
 
         <div className={styles.login}>
           <form onSubmit={onSubmit}>
-
             {success && (
               <div className={styles.success}>
                 {success}
@@ -79,11 +89,11 @@ export default function ForgotPassword() {
               />
             </div>
 
-            {/* {error && (
-            <div className={styles.error}>
-              {error}
-            </div>
-          )} */}
+            {error && (
+              <div className={styles.error}>
+                {error}
+              </div>
+            )}
 
             <button
               type="submit"

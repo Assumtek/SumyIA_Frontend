@@ -5,10 +5,12 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { handleCreateUser } from '../actions/serverActions'
 import styles from './page.module.scss'
+import Image from 'next/image'
 
 export default function Register() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [imageLoading, setImageLoading] = useState(true)
   const router = useRouter()
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -77,16 +79,25 @@ export default function Register() {
   return (
     <div className={styles.containerCenter}>
       <div className={styles.equerda}>
-        <img src="/CapaForms.png" alt="Login" />
+        <div className={`${styles.imageContainer} ${imageLoading ? styles.loading : ''}`}>
+          <Image 
+            src="/CapaForms.png" 
+            alt="Login" 
+            width={3840} 
+            height={3800}
+            priority
+            onLoadingComplete={() => setImageLoading(false)}
+            className={styles.image}
+          />
+        </div>
       </div>
 
-      <div className={styles.direita}>
+      <div className={`${styles.direita} ${imageLoading ? styles.hidden : ''}`}>
         <h1 className={styles.title}>SUMY<span>IA.</span></h1>
         <p className={styles.subtitle}>Crie sua conta para começar a conversar</p>
 
         <div className={styles.registerBox}>
           <form onSubmit={onSubmit}>
-
             <div className={styles.inputGroup}>
               <label htmlFor="nome" className={styles.label}>Nome</label>
               <input

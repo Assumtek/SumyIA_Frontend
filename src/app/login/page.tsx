@@ -6,12 +6,14 @@ import styles from './page.module.scss'
 import { toast } from 'react-toastify'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { handleLogin, handleListarConversas } from '../actions/serverActions'
+import Image from 'next/image'
 
 // Componente que usa useSearchParams
 function LoginContent() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  const [imageLoading, setImageLoading] = useState(true)
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -80,16 +82,25 @@ function LoginContent() {
   return (
     <div className={styles.containerCenter}>
       <div className={styles.equerda}>
-        <img src="/CapaForms.png" alt="Login" />
+        <div className={`${styles.imageContainer} ${imageLoading ? styles.loading : ''}`}>
+          <Image 
+            src="/CapaForms.png" 
+            alt="Login" 
+            width={3840} 
+            height={3800}
+            priority
+            onLoadingComplete={() => setImageLoading(false)}
+            className={styles.image}
+          />
+        </div>
       </div>
 
-      <div className={styles.direita}>
+      <div className={`${styles.direita} ${imageLoading ? styles.hidden : ''}`}>
         <h1 className={styles.title}>SUMY<span>IA.</span></h1>
         <p className={styles.subtitle}>Faça login para começar a conversar</p>
 
         <div className={styles.login}>
           <form onSubmit={onSubmit}>
-
             {success && (
               <div className={styles.success}>
                 {success}

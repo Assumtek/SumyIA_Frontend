@@ -7,6 +7,14 @@
     align-items: center;
     flex-direction: column;
     width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+
+    &.visible {
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 .container * {
@@ -258,7 +266,7 @@
         .servico {
             display: flex;
             flex-direction: column;
-            align-items: start;
+            align-items: flex-start;
             gap: 20px;
             width: 300px;
 
@@ -307,7 +315,7 @@
 .depoimentos {
     display: flex;
     flex-direction: row;
-    align-items: start;
+    align-items: flex-start;
     padding: 120px 100px 100px 100px;
     margin-top: 50px;
     gap: 80px;
@@ -352,7 +360,7 @@
     .depoimento {
         display: flex;
         flex-direction: column;
-        align-items: start;
+        align-items: flex-start;
         gap: 20px;
         border: 1px solid var(--cinza);
         border-radius: 10px;
@@ -625,5 +633,43 @@
                 text-align: center;
             }
         }
+    }
+}
+
+.loadingContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.loadingContent {
+    h1 {
+        font-family: 'Sora', sans-serif;
+        font-size: 3rem;
+        font-weight: 600;
+        color: #000000;
+        animation: fadeIn 0.5s ease-in-out;
+
+        span {
+            color: var(--main);
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

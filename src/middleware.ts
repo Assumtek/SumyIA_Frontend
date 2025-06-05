@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCookiesServer } from "./lib/cookieServer";
-import { api, apiWithCache } from "./app/services/api";
+import { api } from "./app/services/api";
 import { jwtDecode } from "jwt-decode";
 
 interface JwtPayload {
@@ -10,10 +10,6 @@ interface JwtPayload {
     iat: number;
     exp: number;
 }
-
-// Cache em memória
-const userCache = new Map<string, { data: any; timestamp: number }>();
-const CACHE_TTL = 60 * 1000; // 1 minuto em milissegundos
 
 export async function middleware(req: NextRequest) {
     // Pega o caminho da pagina
@@ -37,37 +33,33 @@ export async function middleware(req: NextRequest) {
     
     // se o user estive em uma rota que começa com conversa ele faz um fatch para http://localhost:3333/api/usuarios/
     if (pathname.startsWith("/conversa")) {
-        console.log('Verificando cache para usuário...');
-        
+        console.log('Middleware de conversa');
         if (!token) {
             console.error('Token não encontrado');
             return NextResponse.redirect(new URL('/login', req.url));
         }
-        
-        // Verifica se existe no cache e se ainda é válido
-        const cachedData = userCache.get(token);
-        const now = Date.now();
-        
-        if (cachedData && (now - cachedData.timestamp) < CACHE_TTL) {
-            console.log('Usando dados do cache');
-            return NextResponse.next();
-        }
 
-        console.log('Fazendo nova requisição para /api/usuarios');
         try {
-            const response = await apiWithCache.get("/api/usuarios", {
+            const response = await api.get("/api/usuarios", {
                 headers: { Authorization: `Bearer ${token}` },
             });
-            
-            // Atualiza o cache
-            userCache.set(token, {
-                data: response.data,
-                timestamp: now
-            });
-            
-            console.log('Cache atualizado com sucesso');
+
+            const documentos = response.data._count.documentos;
+            const feedbacks = response.data._count.feedbacks;
+
+            console.log(response.data);
+
+            if (documentos >= 2 && feedbacks < 1) {
+                console.log('Redirecionando para feedback');
+                console.log(documentos);
+                console.log(feedbacks);
+                return NextResponse.redirect(new URL('/feedback', req.url));
+            }
+
+            return NextResponse.next();
         } catch (error) {
             console.error('Erro ao buscar dados do usuário:', error);
+            return NextResponse.next();
         }
     }
 
@@ -75,7 +67,6 @@ export async function middleware(req: NextRequest) {
         if (!token) {
             return NextResponse.redirect(new URL('/login', req.url))
         }
-
         
         // Pega as informações do token
         const user = jwtDecode(token) as JwtPayload
@@ -84,7 +75,6 @@ export async function middleware(req: NextRequest) {
         if (user.role !== "ADMIN") {
             return NextResponse.redirect(new URL('/', req.url))
         }
-
     }
 
     return NextResponse.next();

@@ -92,6 +92,7 @@ export default function Feedback() {
           formData.append('data', JSON.stringify(feedbackData));
           
           await handleCriarFeedback(formData);
+          setFinalizado(true);
         } catch (err) {
           console.error('Erro ao enviar feedback:', err);
           setErroEnvio('Ocorreu um erro ao enviar seu feedback. Tente novamente.');
@@ -137,6 +138,22 @@ export default function Feedback() {
     );
   }
 
+  // Tela de envio
+  if (enviando) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.feedbackContainer}>
+          <div className={styles.finalizadoContainer}>
+            <h2 className={styles.finalizadoTitulo}>Enviando seu feedback...</h2>
+            <p className={styles.finalizadoTexto}>
+              Por favor, aguarde um momento enquanto processamos suas respostas.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // Tela final
   if (finalizado && !enviando && !erroEnvio) {
     return (
@@ -164,11 +181,6 @@ export default function Feedback() {
   return (
     <div className={styles.container}>
       <div className={styles.feedbackContainer}>
-        {enviando && (
-          <div style={{ textAlign: 'center', marginBottom: 24 }}>
-            <span>Enviando feedback...</span>
-          </div>
-        )}
         {erroEnvio && (
           <div style={{ color: 'red', textAlign: 'center', marginBottom: 24 }}>
             {erroEnvio}
@@ -200,7 +212,7 @@ export default function Feedback() {
             <div className={styles.textoContainer}>
               <input
                 type="number"
-                className={styles.textoInput}
+                className={styles.numberInput}
                 placeholder="Digite um valor..."
                 value={respostas[perguntaAtual] as number || ''}
                 onChange={(e) => handleRespostaTexto(Number(e.target.value))}

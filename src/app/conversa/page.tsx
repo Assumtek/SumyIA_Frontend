@@ -67,15 +67,6 @@ export default function Home() {
         <div className={styles.content}>
           <h1 className={styles.title}>SUMY<span>IA</span></h1>
 
-          <div className={styles.description}>
-            <h2>O que a Sumy pode fazer por você?</h2>
-            <ul>
-              <li>Agiliza as suas atividades repetitivas</li>
-              <li>Ela te ajuda a gerar requisitos funcionais para seu projeto</li>
-              <li>Fornece respostas precisas e contextualizadas</li>
-            </ul>
-          </div>
-
           <div className={styles.features}>
             <div className={styles.feature}>
               <h3>Conversas Inteligentes</h3>

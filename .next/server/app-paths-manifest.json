@@ -1,15 +1,6 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/conversa/page": "app/conversa/page.js",
-  "/conversa/[conversaId]/page": "app/conversa/[conversaId]/page.js",
-  "/feedback/page": "app/feedback/page.js",
   "/icon.svg/route": "app/icon.svg/route.js",
   "/page": "app/page.js",
   "/login/page": "app/login/page.js",
-  "/register/page": "app/register/page.js",
-  "/profile/page": "app/profile/page.js",
-  "/forgot-password/page": "app/forgot-password/page.js",
-  "/retorno/page": "app/retorno/page.js",
-  "/reset-password/page": "app/reset-password/page.js",
-  "/admin/page": "app/admin/page.js"
+  "/conversa/[conversaId]/page": "app/conversa/[conversaId]/page.js"
 }
